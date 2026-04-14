@@ -209,27 +209,48 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
         <div class="status-line" id="syncStatus"></div>
       </div>
 
-      <!-- Box 2: Publicar GitHub -->
+      <!-- Box 2: Download + publicar no GitHub -->
       <div class="admin-box">
         <div class="admin-box-title">2 · Publicar no GitHub Pages</div>
-        <div class="field-row">
-          <span class="field-label">Username GitHub</span>
-          <input class="field-input" id="ghUser" placeholder="claudiogualdino" oninput="saveGhConfig()">
+
+        <!-- Repo config (persisted in localStorage) -->
+        <div class="field-row" style="margin-bottom:10px">
+          <span class="field-label">URL do repositório GitHub</span>
+          <div style="display:flex;gap:6px;align-items:center">
+            <input class="field-input" id="ghRepoUrl"
+              placeholder="https://github.com/claudiogualdino/dh-status-dashboard"
+              oninput="saveRepoUrl(this.value)"
+              style="flex:1">
+          </div>
         </div>
-        <div class="field-row">
-          <span class="field-label">Repositório</span>
-          <input class="field-input" id="ghRepo" placeholder="dh-status-dashboard" oninput="saveGhConfig()">
+
+        <!-- Steps -->
+        <div id="publishSteps" style="background:var(--surf3);border:1px solid var(--brd);border-radius:7px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--mut);line-height:2">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:var(--fhr);color:#fff;font-size:10px;font-weight:700;border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">1</span>
+            <span>Clica em <strong style="color:var(--txt)">⬇ Download data.json</strong></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:var(--fhr);color:#fff;font-size:10px;font-weight:700;border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">2</span>
+            <span>Clica em <strong style="color:var(--txt)">🔗 Abrir repositório</strong> → <code style="color:var(--blue);font-size:11px">data.json</code> → ✏️ Edit</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:var(--fhr);color:#fff;font-size:10px;font-weight:700;border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">3</span>
+            <span>Clica em <strong style="color:var(--txt)">⬆ Upload file</strong> → selecciona o <code style="color:var(--blue);font-size:11px">data.json</code> → <strong style="color:var(--txt)">Commit changes</strong></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
+            <span style="background:var(--green);color:#0f1729;font-size:10px;font-weight:700;border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">✓</span>
+            <span style="color:var(--dim)">Dashboard actualizado em ~1 minuto</span>
+          </div>
         </div>
-        <div class="field-row">
-          <span class="field-label">Token GitHub (classic, scope: repo)</span>
-          <input class="field-input" id="ghToken" type="password" placeholder="ghp_…" oninput="saveGhConfig()"
-            onfocus="this.type='text'" onblur="this.type='password'">
-        </div>
+
         <div class="admin-actions">
-          <button class="btn" id="publishBtn" onclick="publishToGitHub()" disabled>
-            <span class="btn-ico" id="publishIco">☁️</span> Publicar no GitHub
+          <button class="btn primary" id="downloadDataBtn" onclick="downloadDataJSON()" disabled>
+            <span>⬇</span> Download data.json
           </button>
-          <button class="btn" onclick="downloadJSON()">⬇ Exportar JSON</button>
+          <button class="btn" id="openRepoBtn" onclick="openRepo()" disabled title="Abre o repositório no GitHub">
+            🔗 Abrir repositório
+          </button>
         </div>
         <div class="status-line" id="publishStatus"></div>
       </div>
@@ -277,7 +298,6 @@ const S = {
 const CLOSED_SET = new Set(['done','closed','canceled','cancelled','resolved']);
 const JQL_DOMAIN = 'https://future-healthcare.atlassian.net';
 const CLOUD_ID   = 'be351f67-eb21-402c-b8bb-7bd9c91b6d72';
-const GH_LS = 'dh_dash_gh';
 
 const STATUS_COLORS = {
   // Backlog / early stages
@@ -411,37 +431,40 @@ function switchTab(tab) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   GITHUB CONFIG (localStorage)
+   REPO URL CONFIG + PUBLISH BUTTON STATE
 ══════════════════════════════════════════════════════ */
-function saveGhConfig() {
-  const cfg = {
-    user:  document.getElementById('ghUser').value.trim(),
-    repo:  document.getElementById('ghRepo').value.trim(),
-    token: document.getElementById('ghToken').value.trim()
-  };
-  localStorage.setItem(GH_LS, JSON.stringify(cfg));
+const LS_REPO = 'dh_dash_repo_url';
+
+function saveRepoUrl(val) {
+  val = val.trim().replace(/\/+$/, '');
+  if (val) localStorage.setItem(LS_REPO, val);
+  else localStorage.removeItem(LS_REPO);
   updatePublishBtn();
 }
 
 function loadGhConfig() {
-  try {
-    const cfg = JSON.parse(localStorage.getItem(GH_LS)||'{}');
-    if (cfg.user)  document.getElementById('ghUser').value  = cfg.user;
-    if (cfg.repo)  document.getElementById('ghRepo').value  = cfg.repo;
-    if (cfg.token) document.getElementById('ghToken').value = cfg.token;
-    updatePublishBtn();
-  } catch(e){}
+  const saved = localStorage.getItem(LS_REPO) || '';
+  const input = document.getElementById('ghRepoUrl');
+  if (input && saved) input.value = saved;
+  updatePublishBtn();
 }
 
-function getGhConfig() {
-  try { return JSON.parse(localStorage.getItem(GH_LS)||'{}'); }
-  catch(e){ return {}; }
+function getRepoUrl() {
+  const input = document.getElementById('ghRepoUrl');
+  return (input ? input.value.trim() : '') || localStorage.getItem(LS_REPO) || '';
+}
+
+function openRepo() {
+  const url = getRepoUrl();
+  if (url) window.open(url, '_blank');
 }
 
 function updatePublishBtn() {
-  const cfg = getGhConfig();
-  const ready = !!(cfg.user && cfg.repo && cfg.token) && S.epics.length > 0;
-  document.getElementById('publishBtn').disabled = !ready;
+  const hasData = S.epics.length > 0 || S.stories.length > 0;
+  const dl = document.getElementById('downloadDataBtn');
+  if (dl) dl.disabled = !hasData;
+  const repo = document.getElementById('openRepoBtn');
+  if (repo) repo.disabled = !getRepoUrl();
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -504,72 +527,100 @@ async function startJiraSync() {
   }
 }
 
-/* Fetch ALL pages for a given JQL — paginates automatically (100/page) */
-async function fetchAllPages(label, jql, fields, exampleItem, epicKeyNote, onProgress) {
-  const PAGE_SIZE = 100;
-  let allItems = [];
-  let startAt  = 0;
-  let page     = 1;
-  let hasMore  = true;
+/* ─────────────────────────────────────────────────────────────
+   JIRA FETCH — extract from mcp_tool_result blocks directly
+   The model makes all MCP calls; we read the raw Jira responses
+   from mcp_tool_result content blocks (never from model text).
+   This avoids JSON truncation entirely.
+───────────────────────────────────────────────────────────── */
 
-  while (hasMore) {
-    onProgress && onProgress(page, allItems.length);
-
-    const prompt = `Query Jira DHCM ${label}.
-Call searchJiraIssuesUsingJql with:
-  cloudId   = "${CLOUD_ID}"
-  jql       = "${jql}"
-  fields    = ${fields}
-  maxResults = ${PAGE_SIZE}
-  startAt   = ${startAt}
-
-${epicKeyNote}
-
-The response will include: total, startAt, maxResults, isLast (or issues array length).
-Return ONLY a JSON object (no markdown, no text, no backticks):
-{
-  "items": [${exampleItem}],
-  "total": 999,
-  "isLast": false
+/* Map a raw Jira issue object to our slim format */
+function mapIssue(issue, isStory) {
+  const key     = issue.key || '';
+  const summary = issue.fields?.summary || '';
+  const status  = issue.fields?.status?.name || '';
+  if (!isStory) return { key, summary, status };
+  // epicKey: customfield_10005 (legacy Epic Link) OR parent.key
+  const epicKey = issue.fields?.customfield_10005
+    || issue.fields?.parent?.key
+    || null;
+  return { key, summary, status, epicKey };
 }
-If there are no more results, set "isLast": true.`;
 
-    const pageData = await jiraCall(label + ' p' + page, prompt, true);
-    const items  = pageData.items  || pageData; // fallback: plain array
-    const total  = pageData.total;
-    const isLast = pageData.isLast;
+/* Extract and combine all issues from mcp_tool_result blocks */
+function extractFromToolResults(contentBlocks, isStory) {
+  const results = contentBlocks.filter(b => b.type === 'mcp_tool_result');
+  const allIssues = [];
 
-    if (Array.isArray(items)) allItems = allItems.concat(items);
-    else { allItems = allItems.concat(pageData); hasMore = false; break; }
-
-    // Determine if there are more pages
-    if (isLast === true || isLast === 'true') {
-      hasMore = false;
-    } else if (typeof total === 'number') {
-      startAt += items.length;
-      hasMore = startAt < total && items.length > 0;
-    } else {
-      // No total info — stop if we got fewer than PAGE_SIZE
-      hasMore = items.length >= PAGE_SIZE;
-      startAt += items.length;
+  for (const block of results) {
+    // tool result content is usually [{type:'text', text:'...'}]
+    const texts = (block.content || []).filter(x => x.type === 'text').map(x => x.text);
+    for (const txt of texts) {
+      try {
+        // Jira API returns {issues:[...], total, startAt, maxResults}
+        const parsed = JSON.parse(txt);
+        const issues = parsed.issues || parsed.values || [];
+        if (Array.isArray(issues) && issues.length > 0) {
+          allIssues.push(...issues.map(i => mapIssue(i, isStory)));
+        }
+      } catch (_) {
+        // Some tool results are not JSON (e.g. error messages) — skip
+        console.warn('[DH Dashboard] Non-JSON tool result, skipping:', txt.slice(0, 80));
+      }
     }
+  }
+  return allIssues;
+}
 
-    page++;
+async function fetchAllPages(label, jql, fields, _exampleItem, _epicKeyNote, onProgress) {
+  const isStory = label === 'stories';
+  onProgress && onProgress(1, 0);
 
-    // Safety: never more than 20 pages (2000 issues)
-    if (page > 20) { console.warn('[DH Dashboard] Safety limit: stopped at 20 pages'); break; }
+  const prompt = `You must fetch ALL Jira ${label} by paginating.
+
+Instructions:
+1. Call searchJiraIssuesUsingJql: cloudId="${CLOUD_ID}", jql="${jql}", fields=${fields}, maxResults=100, startAt=0
+2. Check the "total" field in the Jira response
+3. If total > 100: call again with startAt=100; if total > 200: call with startAt=200; continue until startAt >= total
+4. You MUST make as many tool calls as needed — do not stop early
+5. After ALL calls are done, reply with only: "Done. Fetched all ${label}."
+
+Do NOT output any JSON. Do NOT summarise the data. Just make the tool calls, then say Done.`;
+
+  const result = await callAnthropicAPI(prompt, label);
+  const blocks  = result.content || [];
+
+  // Extract issues from MCP tool result blocks
+  const items = extractFromToolResults(blocks, isStory);
+
+  if (items.length === 0) {
+    // Fallback: maybe model returned JSON text anyway — try parsing it
+    const text = blocks.filter(b => b.type === 'text').map(b => b.text).join('');
+    if (text.trim() && text.includes('[')) {
+      console.warn('[DH Dashboard] No tool results found, falling back to text parse for ' + label);
+      return parseJSONArray(text, label);
+    }
+    throw new Error(
+      'Sem dados para ' + label + '. ' +
+      'Verifica se o MCP Atlassian está autorizado (Settings → Integrations → Atlassian) ' +
+      'e tenta novamente.'
+    );
   }
 
-  return allItems;
+  // Deduplicate by key (in case pages overlapped)
+  const seen = new Set();
+  const deduped = items.filter(i => { if (seen.has(i.key)) return false; seen.add(i.key); return true; });
+
+  onProgress && onProgress('✓', deduped.length);
+  return deduped;
 }
 
-/* Single Jira MCP call — returns parsed JSON (object or array) */
-async function jiraCall(label, prompt, expectObject) {
+async function callAnthropicAPI(prompt, label) {
   const body = {
     model: 'claude-sonnet-4-20250514',
-    max_tokens: 16000,
+    max_tokens: 4000,   // model only needs to say "Done" — data is in tool results
     system: prompt,
-    messages: [{ role: 'user', content: 'Execute the query and return the JSON now.' }],
+    messages: [{ role: 'user', content: 'Start now. Paginate until ALL ' + label + ' are fetched.' }],
     mcp_servers: [{ type: 'url', url: 'https://mcp.atlassian.com/v1/sse', name: 'atlassian-mcp' }]
   };
 
@@ -583,21 +634,17 @@ async function jiraCall(label, prompt, expectObject) {
     const e = await resp.json().catch(() => ({}));
     throw new Error(e.error?.message || ('HTTP ' + resp.status));
   }
+  return await resp.json();
+}
 
-  const result = await resp.json();
+/* jiraCall kept for compatibility — not used in main fetch path */
+async function jiraCall(label, prompt, expectObject) {
+  const result = await callAnthropicAPI(prompt, label);
   const text = (result.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
-
-  if (!text.trim()) {
-    throw new Error('Resposta vazia para ' + label +
-      '. O MCP Atlassian está autorizado? Vai a Settings → Integrations → Atlassian e reauthoriza.');
-  }
-
-  if (result.stop_reason === 'max_tokens') {
-    console.warn('[DH Dashboard] ' + label + ': stop_reason=max_tokens — resposta pode estar truncada.');
-  }
-
+  if (!text.trim()) throw new Error('Resposta vazia para ' + label);
   return expectObject ? parseJSONObject(text, label) : parseJSONArray(text, label);
 }
+
 
 /* Parse a JSON object response (paginated call returns {items, total, isLast}) */
 function parseJSONObject(raw, label) {
@@ -659,75 +706,26 @@ function parseJSONArray(raw, label) {
 /* ═══════════════════════════════════════════════════════
    PUBLISH TO GITHUB
 ══════════════════════════════════════════════════════ */
-async function publishToGitHub() {
-  const cfg = getGhConfig();
-  if (!cfg.user || !cfg.repo || !cfg.token) {
-    setPublishStatus('Preenche todos os campos GitHub antes de publicar.', 'err');
-    return;
-  }
+function downloadDataJSON() {
   if (!S.epics.length && !S.stories.length) {
     setPublishStatus('Faz primeiro um Sync do Jira.', 'err');
     return;
   }
-
-  setPublishLoading(true);
-  setPublishStatus('A publicar...', '');
-
   const data = {
-    epics:    S.epics,
-    stories:  S.stories,
-    syncedAt: S.syncedAt,
+    epics:       S.epics,
+    stories:     S.stories,
+    syncedAt:    S.syncedAt,
     publishedAt: new Date().toISOString()
   };
-
-  try {
-    // Push data.json
-    setPublishStatus('A publicar data.json...', '');
-    await ghPush(cfg, 'data.json', JSON.stringify(data, null, 2));
-
-    // Push index.html (the current page)
-    setPublishStatus('A publicar index.html...', '');
-    const html = '<!DOCTYPE html>' + document.documentElement.outerHTML;
-    await ghPush(cfg, 'index.html', html);
-
-    setPublishStatus('✓ Publicado em https://' + cfg.user + '.github.io/' + cfg.repo + '/', 'ok');
-    showNotice('ok', '✓ Publicado! O site estará atualizado em ~1 minuto em <a href="https://' + cfg.user + '.github.io/' + cfg.repo + '/" target="_blank" style="color:var(--green)">https://' + cfg.user + '.github.io/' + cfg.repo + '/</a>');
-
-  } catch(err) {
-    setPublishStatus('Erro: ' + err.message, 'err');
-  } finally {
-    setPublishLoading(false);
-  }
-}
-
-async function ghPush(cfg, path, content) {
-  const url = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${path}`;
-  const b64 = btoa(unescape(encodeURIComponent(content)));
-
-  // Get current SHA if file exists
-  let sha;
-  try {
-    const get = await fetch(url, { headers: { 'Authorization': 'token ' + cfg.token, 'Accept': 'application/vnd.github.v3+json' } });
-    if (get.ok) { const d = await get.json(); sha = d.sha; }
-  } catch(_) {}
-
-  const body = { message: 'DH Dashboard sync ' + new Date().toISOString().slice(0,16), content: b64 };
-  if (sha) body.sha = sha;
-
-  const put = await fetch(url, {
-    method: 'PUT',
-    headers: { 'Authorization': 'token ' + cfg.token, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
-    body: JSON.stringify(body)
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(blob),
+    download: 'data.json'
   });
-  if (!put.ok) {
-    const e = await put.json().catch(() => ({}));
-    throw new Error(e.message || 'HTTP ' + put.status + ' ao publicar ' + path);
-  }
+  a.click();
+  setPublishStatus('\u2713 data.json descarregado. Faz upload no GitHub para publicar.', 'ok');
 }
 
-/* ═══════════════════════════════════════════════════════
-   DOWNLOAD JSON
-══════════════════════════════════════════════════════ */
 function downloadJSON() {
   const blob = new Blob([JSON.stringify({ epics: S.epics, stories: S.stories, syncedAt: S.syncedAt }, null, 2)], { type: 'application/json' });
   const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: 'dhcm-status-' + new Date().toISOString().slice(0,10) + '.json' });
@@ -925,10 +923,7 @@ function setSyncLoading(v) {
   const b = document.getElementById('syncBtnAdmin'); if(b) b.disabled = v;
   const i = document.getElementById('syncIcoAdmin'); if(i){ i.textContent = v ? '⏳' : '🔄'; i.className = 'btn-ico' + (v ? ' spin' : ''); }
 }
-function setPublishLoading(v) {
-  document.getElementById('publishBtn').disabled = v;
-  const i = document.getElementById('publishIco'); i.textContent = v ? '⏳' : '☁️'; i.className = 'btn-ico' + (v ? ' spin' : '');
-}
+function setPublishLoading(v) { /* no-op */ }
 
 /* ─── NOTICES ─── */
 function showNotice(type, html) {
