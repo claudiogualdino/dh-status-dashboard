@@ -1,0 +1,1942 @@
+{
+  "epics": [
+    {
+      "key": "DHCM-2222",
+      "summary": "[DH83] Questionnaire Language Setup",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2172",
+      "summary": "[DH78-01] Change vs_cia_id null to 63 in all offers (packs)",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2157",
+      "summary": "[DH101] Infermedica Integration - Symptoms assessment",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2151",
+      "summary": "[DH100] Digital Health apps integration",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2147",
+      "summary": "[DH99] - Client Portal Rescheduled or Cancel Appointment",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-2134",
+      "summary": "[DH84-02] Scribe Get Vital Signal Values",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-2123",
+      "summary": "[DH98] FHvc Provider External Medical Network",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2119",
+      "summary": "Clinical Management - Search Client by Beneficiary Number - Clients Page",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2107",
+      "summary": "[DH96] Health Pack Management - Contents/Health Literacy",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2105",
+      "summary": "[DH95] Clinical Management - Allergy Alert button",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2094",
+      "summary": "Tyto - Client with device - Create account with a specific role",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2092",
+      "summary": "[DH71-02] - Prescription request improvements",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2039",
+      "summary": "Activate/Inactive Client",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2033",
+      "summary": "Caretaker Set Up - Entity concept & Update policy info",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2018",
+      "summary": "Remove Policy from Device Tyto Pro & add policy search",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2013",
+      "summary": "CM Client Audit & CM Entities Origin ",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-1981",
+      "summary": "DH93 - SAP Appointments - Estimated Wait Time",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2306",
+      "summary": "Processo de notificações WF - Virtual clinic",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-1860",
+      "summary": "[DH102] Calendar Slots Available",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-1858",
+      "summary": "FHvc Portals Downtime window",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-1856",
+      "summary": "Clinical Management Maintenance Tasks",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2295",
+      "summary": "OMR Subscription - Gift",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-1767",
+      "summary": "[DH41-03] - FHvc Portals Customization - Client Portal",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-1762",
+      "summary": "[DH41-02] - FHvc Portals Customization - Caretaker Portal",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-1748",
+      "summary": "[DH88] - Client Portal - Manage Insurance Card",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-1738",
+      "summary": "[DH87] - FHvc NPS Survey ",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2307",
+      "summary": "CM - Configured Last Answers by Questionnaire",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-2241",
+      "summary": "[DH45-04] - me1st User Registration from FH platform",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-1681",
+      "summary": "[DH86] - FHvc Manage Campaigns to Appointments, Packs and Devices",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-1608",
+      "summary": "[DH78-02] - Manage offers in FHvc Company (id 63)",
+      "status": "Implemented"
+    },
+    {
+      "key": "DHCM-2302",
+      "summary": "[DH72-03] - Assessments Algorithm Validation",
+      "status": "In Business Requirements"
+    },
+    {
+      "key": "DHCM-2240",
+      "summary": "[DH45-03] - Create Questionnaire NIF optional",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2253",
+      "summary": "[DH83] - Health Assessments language configuration",
+      "status": "To Do"
+    },
+    {
+      "key": "DHCM-2304",
+      "summary": "[DH72-02] - VBH F2",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-2264",
+      "summary": "[DH60-02] - Portal FHvc login review 2",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2245",
+      "summary": "[DH82] - Health Assessments Improvements III",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2292",
+      "summary": "[DH80] - Foreign management - Tax value and Phone",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2293",
+      "summary": "[DH79] - Caretaker appointment (entity) and email",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-2243",
+      "summary": "[DH76] - Health Assessments restrictions",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-2287",
+      "summary": "[DH75] - Physician Shifts",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-2303",
+      "summary": "[DH72-01] - VBH/Entities F1",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2232",
+      "summary": "[DH69] - Associate OMR device with Client - review",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2297",
+      "summary": "[DH70] - Reporting",
+      "status": "In Business Requirements"
+    },
+    {
+      "key": "DHCM-2301",
+      "summary": "[DH68] - International Platform Demo",
+      "status": "On Hold"
+    },
+    {
+      "key": "DHCM-2299",
+      "summary": "[DH66] - Integration with Prescription Platform",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-2282",
+      "summary": "[DH62] - FHvc Platform Documentation review",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2261",
+      "summary": "[DH61] - Health Packs - Points reuse",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2285",
+      "summary": "[DH59] - Appointment Description visible on Invoice",
+      "status": "In Technical Analysis"
+    },
+    {
+      "key": "DHCM-2277",
+      "summary": "[DH56] - FHvc appointments - New Video Platform",
+      "status": "On Hold"
+    },
+    {
+      "key": "DHCM-2279",
+      "summary": "[DH54] - Group sessions ",
+      "status": "In Progress"
+    },
+    {
+      "key": "DHCM-2236",
+      "summary": "[DH18-10] - Tyto FHvc Utilization",
+      "status": "Ready for Development"
+    },
+    {
+      "key": "DHCM-2281",
+      "summary": "[DH50] - FHvc Billing review",
+      "status": "In Business Requirements"
+    },
+    {
+      "key": "DHCM-2266",
+      "summary": "[DH44] - FHvc Portal Message and Request Manager",
+      "status": "In Business Requirements"
+    },
+    {
+      "key": "DHCM-2269",
+      "summary": "[DH43] - FHvc Portal Clinical Contents ",
+      "status": "In Business Requirements"
+    },
+    {
+      "key": "DHCM-2268",
+      "summary": "[DH38-01] - Digital Archive - FHvc Client Portal ",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2230",
+      "summary": "[DH18-07] RMO Disposables sales",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2270",
+      "summary": "[DH??] - FHVC Internationalization ",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2273",
+      "summary": "[DH38] - FHvc Digital Archive",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2267",
+      "summary": "[DH41] FHVC Portal Customization",
+      "status": "On Hold"
+    },
+    {
+      "key": "DHCM-2289",
+      "summary": "[DH33] Clinical Management Translation",
+      "status": "On Hold"
+    },
+    {
+      "key": "DHCM-2259",
+      "summary": "[DH25-03] Clinical Management - Pack 3",
+      "status": "In Business Requirements"
+    },
+    {
+      "key": "DHCM-2238",
+      "summary": "[DH??] Chronic Desease Management",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2263",
+      "summary": "[DH09] FHvc Single Sign On",
+      "status": "Backlog"
+    },
+    {
+      "key": "DHCM-2237",
+      "summary": "[DH45] Me1st Project",
+      "status": "In Progress"
+    }
+  ],
+  "stories": [
+    {
+      "key": "DHCM-2225",
+      "summary": "[DH83-03] Template Duplication with Auto-Translation",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2222"
+    },
+    {
+      "key": "DHCM-2224",
+      "summary": "[DH83-02] Language Selection in Template Creation (Idioma in Dados Gerais)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2222"
+    },
+    {
+      "key": "DHCM-2223",
+      "summary": "[DH83-01] Multilingual Base Catalogue – Questions, Answer Types, Options, Areas",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2222"
+    },
+    {
+      "key": "DHCM-2220",
+      "summary": "Video Teams Group Sessions",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-2219",
+      "summary": "CM - unable insert health pack card manually",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-2218",
+      "summary": "Change Service Name - Permanente -> Prioritário - HELP-24780",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-2215",
+      "summary": "Recover Questionnaire Editor data regarding FHvc",
+      "status": "In Progress",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-2214",
+      "summary": "Include Group Session available in the Health Pack",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-2211",
+      "summary": "[DH60-02] Account Management Links – Origin-aware Redirection with JWT (REQ-020)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2210",
+      "summary": "[DH60-02] SAC Email Notification on Pending Account Creation (REQ-023)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2209",
+      "summary": "[DH60-02] CM – Account Listing with NIF, Origin Filters & Pending Banner (REQ-019)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2208",
+      "summary": "[DH60-02] CM – Account Action Buttons: Ativar / Inativar / Associar (REQ-018)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2207",
+      "summary": "[DH60-02] CM – Dados Clínica Virtual Section + Account Audit Log (REQ-017, REQ-024)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2206",
+      "summary": "[DH60-02] AC-to-FHvc Registration Flows – All 6 Scenarios (REQ-009–015)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2205",
+      "summary": "[DH60-02] Link Expirado Screen + Self-Service Resend (REQ-025)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2204",
+      "summary": "[DH60-02] JWT AC Context Token – Signing, Validation & Insurer Allowlist (REQ-022)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2203",
+      "summary": "[DH60-02] Password Security Rules + Define Password Screen (REQ-021)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2202",
+      "summary": "[DH60-02] Email Templates – 5 Templates incl. SAC Internal Notification (REQ-023)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2201",
+      "summary": "[DH60-02] Clinical Record Created at Registration Time (REQ-008)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2200",
+      "summary": "[DH60-02] Direct Registration – Clinical Record Conflict Flows (REQ-005–007)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2199",
+      "summary": "[DH60-02] Direct Registration – Existing Account Conflict Flows (REQ-001–004)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2198",
+      "summary": "[DH60-02] Account State Machine: Ativo / Pendente / Inativo",
+      "status": "Backlog",
+      "epicKey": "DHCM-2264"
+    },
+    {
+      "key": "DHCM-2195",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2194",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2192",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2191",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2188",
+      "summary": "NPS Survey – Temporary Reporting Table for PowerBI Export",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-2187",
+      "summary": "Client Portal – NPS Survey Shortcut on Appointment Detail",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-2186",
+      "summary": "Client Portal – NPS Survey on Questionnaires Page",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-2185",
+      "summary": "Clinical Management – NPS Survey Tab in Appointment Detail",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-2184",
+      "summary": "NPS Survey Email Template with Public URL",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-2183",
+      "summary": "NPS Survey Public URL Generation & Lifecycle",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-2179",
+      "summary": "Activate/Inactive Client",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2039"
+    },
+    {
+      "key": "DHCM-2178",
+      "summary": "Insurer Client Area — Symptoms Assessment SSO Integration",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2157"
+    },
+    {
+      "key": "DHCM-2177",
+      "summary": "Data Integration, Triage History & Analytics",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2157"
+    },
+    {
+      "key": "DHCM-2176",
+      "summary": "Digital Health Apps Portal - Symptom Checker Registration",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2157"
+    },
+    {
+      "key": "DHCM-2175",
+      "summary": "Call Center Triage (CCT) iFrame Integration (Operator-Facing)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2157"
+    },
+    {
+      "key": "DHCM-2174",
+      "summary": "Self-Triage iFrame Integration (Patient-Facing)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2157"
+    },
+    {
+      "key": "DHCM-2173",
+      "summary": "Review the packs offers vs_cia_id null - change to 63",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2172"
+    },
+    {
+      "key": "DHCM-2171",
+      "summary": "Usage Tracking API (Partner Webhook)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2170",
+      "summary": "Subscription Cancellation",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2169",
+      "summary": "Subscription Management",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2168",
+      "summary": "Purchase Confirmation & Consent",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2167",
+      "summary": "Payment Processing",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2166",
+      "summary": "Subscription Plan Selection",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2165",
+      "summary": "Ad Hoc Purchase (Pay-per-use)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2164",
+      "summary": "SSO Integration & App Launch",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2163",
+      "summary": "App Detail Screen",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2162",
+      "summary": "Product-App Configuration (Backoffice)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2161",
+      "summary": "App Catalog & Discovery",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2156",
+      "summary": "Homepage Integration - Digital Health Apps Entry Point",
+      "status": "Backlog",
+      "epicKey": "DHCM-2151"
+    },
+    {
+      "key": "DHCM-2153",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2152",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2150",
+      "summary": "Appointment reminder",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2147"
+    },
+    {
+      "key": "DHCM-2149",
+      "summary": "Reschedule and cancel appointment",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2147"
+    },
+    {
+      "key": "DHCM-2142",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2141",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2138",
+      "summary": "Request administrative action",
+      "status": "Backlog",
+      "epicKey": "DHCM-2092"
+    },
+    {
+      "key": "DHCM-2137",
+      "summary": "Email administrative action",
+      "status": "Backlog",
+      "epicKey": "DHCM-2092"
+    },
+    {
+      "key": "DHCM-2133",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2132",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2131",
+      "summary": "Error in automatic retrofit",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2130",
+      "summary": "Clinical Management - External Card Registration",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2123"
+    },
+    {
+      "key": "DHCM-2129",
+      "summary": "Database Schema Changes",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2123"
+    },
+    {
+      "key": "DHCM-2128",
+      "summary": "Card Number Alias Display",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2123"
+    },
+    {
+      "key": "DHCM-2127",
+      "summary": "External Card Number Registration",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2123"
+    },
+    {
+      "key": "DHCM-2126",
+      "summary": "Partner-Specific URL Recognition",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2123"
+    },
+    {
+      "key": "DHCM-2125",
+      "summary": "External Network Configuration Table",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2123"
+    },
+    {
+      "key": "DHCM-2120",
+      "summary": "Clinical Management - Search Client by Beneficiary Number - Clients Page",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2119"
+    },
+    {
+      "key": "DHCM-2118",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2117",
+      "summary": "Erro no retrofit automático",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-2111",
+      "summary": "Add allergy alert display through other screens",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2105"
+    },
+    {
+      "key": "DHCM-2110",
+      "summary": "Content view tracking",
+      "status": "Backlog",
+      "epicKey": "DHCM-2107"
+    },
+    {
+      "key": "DHCM-2109",
+      "summary": "Content Database Management",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2107"
+    },
+    {
+      "key": "DHCM-2108",
+      "summary": "Health Contents on Health Pack Details",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2107"
+    },
+    {
+      "key": "DHCM-2106",
+      "summary": "Allergy  Note Display",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2105"
+    },
+    {
+      "key": "DHCM-2102",
+      "summary": "Account Disassociation",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2241"
+    },
+    {
+      "key": "DHCM-2101",
+      "summary": "Preferences Management",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2241"
+    },
+    {
+      "key": "DHCM-2100",
+      "summary": "Pre-Registration API Integration",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2241"
+    },
+    {
+      "key": "DHCM-2099",
+      "summary": "Data Sharing Consent",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2241"
+    },
+    {
+      "key": "DHCM-2098",
+      "summary": "Me1st Landing Page",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2241"
+    },
+    {
+      "key": "DHCM-2097",
+      "summary": "Menu Configuration & Visibility",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2241"
+    },
+    {
+      "key": "DHCM-2096",
+      "summary": "Tyto Consumer Role",
+      "status": "On Hold",
+      "epicKey": "DHCM-2094"
+    },
+    {
+      "key": "DHCM-2089",
+      "summary": "recover DH72 features and deploy in QA",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-2047",
+      "summary": "Clinical Note - new tab prescription request detail",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2092"
+    },
+    {
+      "key": "DHCM-2044",
+      "summary": "Get client data (vital signs & biometry) from AI model",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2134"
+    },
+    {
+      "key": "DHCM-2043",
+      "summary": "Group Session Section visible - Appointment Room",
+      "status": "Implemented",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-2035",
+      "summary": "Update information regarding to the associated policy",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2033"
+    },
+    {
+      "key": "DHCM-2034",
+      "summary": "CM - Caretaker list - review label Entity",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2033"
+    },
+    {
+      "key": "DHCM-2020",
+      "summary": "Add search button to fill company field",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2018"
+    },
+    {
+      "key": "DHCM-2019",
+      "summary": "Remove policy from device - frontend button",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2018"
+    },
+    {
+      "key": "DHCM-2014",
+      "summary": "CM Client Audit & CM Entities Origin",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2013"
+    },
+    {
+      "key": "DHCM-2005",
+      "summary": "Database Configuration for Card Visibility Management Across Platforms",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-2004",
+      "summary": "Show Wait Time in the Appointments List (Refresh on Page Load)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-2003",
+      "summary": "Wait Time Calculation (Median of Last X Consultations)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-2002",
+      "summary": "Persist Wait Time per Appointment",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-2001",
+      "summary": "Action Audit Log for Each shifts Record",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-2000",
+      "summary": "Persist History of All Imported Files (per shifts)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-1999",
+      "summary": "Import That Replaces an Existing File (Soft Deactivation + New Active Records)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-1998",
+      "summary": "Shifts Template Import (Days as Columns, 24h Slots as Rows)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-1997",
+      "summary": "Add New shifts Button & Modal (Year, Month, File)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-1996",
+      "summary": "New Screen: Doctor Shifts List (by Year/Month)",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-1995",
+      "summary": "Doctor Abbreviation in Doctor Configuration",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1981"
+    },
+    {
+      "key": "DHCM-1993",
+      "summary": "Adding Name Field to Billing Data in TytoCare Order Process",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1992",
+      "summary": "Clinical Management - menus reorganization",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1979",
+      "summary": "CM - Client Documents Management",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1977",
+      "summary": "Appointment - Medical Code set up by platform",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1976",
+      "summary": "Family management - mitigate registration errors",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1975",
+      "summary": "Appointments list export",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1952",
+      "summary": "Create Report - Add preview report by default",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1951",
+      "summary": "Eligibility messages - shows to CM user",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1947",
+      "summary": "Health Pack - Review Cover descriptions FHnet vs Clinical Management",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1944",
+      "summary": "Group Sessions - Calendar session and assign Doctor",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1942",
+      "summary": "Elegibility Service FHnet - create an alarmistic email",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1941",
+      "summary": "Clinical Management - Clinical Note direct access to report",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1939",
+      "summary": "Automatic Cancelation - specific template",
+      "status": "DEV Testing",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1938",
+      "summary": "Client Portal - Edit Session",
+      "status": "DEV Refused",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1937",
+      "summary": "Clinical Management - Session Detail - Actions buttons visible",
+      "status": "In Progress",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1936",
+      "summary": "Clinical Management - Layout standardization Appointments vs Sessions",
+      "status": "Implemented",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1934",
+      "summary": "Client Portal - Group Session Flow",
+      "status": "DEV Refused",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1933",
+      "summary": "Set up the NEW Jasper Report - Group Sessions",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1930",
+      "summary": "Clinical Management - Group Session - Session Note and report",
+      "status": "DEV Testing",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1929",
+      "summary": "Clinical Management - Client Session Note - review screen",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1928",
+      "summary": "Clinical Management - Clinical Record - Request a Group Session",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1927",
+      "summary": "Clinical Management - Session Group list Changes - Admin Screen",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1926",
+      "summary": "Clinical Management - Group Session Detail Screen",
+      "status": "DEV Testing",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1925",
+      "summary": "Client Portal Homepage - Appointments list - Medical Code Description",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1912",
+      "summary": "Health Pack - Gift Subscription - Validate active Pack",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1911",
+      "summary": "Health Pack - Pack Closed - update policy end date",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1910",
+      "summary": "AC handoff - Questionnaire Validation - sso error",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1896",
+      "summary": "Branch Review ",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1608"
+    },
+    {
+      "key": "DHCM-1862",
+      "summary": "Client Portal -  Shows 1st day available",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1860"
+    },
+    {
+      "key": "DHCM-1861",
+      "summary": "Clinical Management - Shows 1st day available",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1860"
+    },
+    {
+      "key": "DHCM-1859",
+      "summary": "FHvc Portals Downtime window",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1858"
+    },
+    {
+      "key": "DHCM-1839",
+      "summary": "Clinical Management - Policy number not recorded",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1830",
+      "summary": "Portal zelador",
+      "status": "DEV Testing",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1788",
+      "summary": "Requirements & Stories Definition [DH41-03]",
+      "status": "Backlog",
+      "epicKey": "DHCM-1767"
+    },
+    {
+      "key": "DHCM-1787",
+      "summary": "Requirements & Stories Definition [DH41-02]",
+      "status": "Backlog",
+      "epicKey": "DHCM-1762"
+    },
+    {
+      "key": "DHCM-1772",
+      "summary": "QC Historic Table review",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-1770",
+      "summary": "Client Portal - card number available",
+      "status": "Backlog",
+      "epicKey": "DHCM-1767"
+    },
+    {
+      "key": "DHCM-1769",
+      "summary": "Client Communications - Template Email - url",
+      "status": "Backlog",
+      "epicKey": "DHCM-1767"
+    },
+    {
+      "key": "DHCM-1768",
+      "summary": "Client Portal - Client login",
+      "status": "Backlog",
+      "epicKey": "DHCM-1767"
+    },
+    {
+      "key": "DHCM-1765",
+      "summary": "Clinical Management - Caretaker Settings - Company",
+      "status": "Backlog",
+      "epicKey": "DHCM-1762"
+    },
+    {
+      "key": "DHCM-1764",
+      "summary": "Caretaker Portal - Partner Customization",
+      "status": "Backlog",
+      "epicKey": "DHCM-1762"
+    },
+    {
+      "key": "DHCM-1763",
+      "summary": "Clinical Management - Settings Screen",
+      "status": "Backlog",
+      "epicKey": "DHCM-1762"
+    },
+    {
+      "key": "DHCM-1761",
+      "summary": "Clinical Management - Pack Subscription Flow with discount",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2261"
+    },
+    {
+      "key": "DHCM-1756",
+      "summary": "Client Portal - Unable to Book an appointment - Low points level",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2261"
+    },
+    {
+      "key": "DHCM-1755",
+      "summary": "Clinical Management - Pack Validation - Points available",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2261"
+    },
+    {
+      "key": "DHCM-1754",
+      "summary": "Client Portal Health Entities menu",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1748"
+    },
+    {
+      "key": "DHCM-1753",
+      "summary": "Preferred Insurance Card",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1748"
+    },
+    {
+      "key": "DHCM-1752",
+      "summary": "Delete Insurance Card",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1748"
+    },
+    {
+      "key": "DHCM-1751",
+      "summary": "Add Insurance Card",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1748"
+    },
+    {
+      "key": "DHCM-1750",
+      "summary": "Client Portal - Manage Insurance Card Menu",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1748"
+    },
+    {
+      "key": "DHCM-1749",
+      "summary": "Requirements & Stories Definition [DH88]",
+      "status": "Backlog",
+      "epicKey": "DHCM-1748"
+    },
+    {
+      "key": "DHCM-1742",
+      "summary": "Create Routine - Abandoned QC not answered",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-1741",
+      "summary": "New trigger sent QC - Billed Appointment",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-1740",
+      "summary": "QC Setup - New Service Type",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1738"
+    },
+    {
+      "key": "DHCM-1737",
+      "summary": "backup process Online Payments - Group Sessions Process",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1736",
+      "summary": "backup process Online Payments - Prescription Process",
+      "status": "Backlog",
+      "epicKey": "DHCM-2092"
+    },
+    {
+      "key": "DHCM-1734",
+      "summary": "Adapt API Microsoft Graph",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1733",
+      "summary": "Client Portal - Pack Subscription Flow with discount",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2261"
+    },
+    {
+      "key": "DHCM-1732",
+      "summary": "Pack Validation - Points available",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2261"
+    },
+    {
+      "key": "DHCM-1731",
+      "summary": "Points Reuse How to",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2261"
+    },
+    {
+      "key": "DHCM-1730",
+      "summary": "Requirements & Stories Definition [DH45-04]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2241"
+    },
+    {
+      "key": "DHCM-1727",
+      "summary": "Requirements & Stories Definition [DH66]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2299"
+    },
+    {
+      "key": "DHCM-1723",
+      "summary": "Group Sessions - Status Changes",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1693",
+      "summary": "Add feature Billing Manually [DH71]",
+      "status": "Backlog",
+      "epicKey": "DHCM-2092"
+    },
+    {
+      "key": "DHCM-1691",
+      "summary": "Requirements Definition [DH86]",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1681"
+    },
+    {
+      "key": "DHCM-1687",
+      "summary": "me1st user registration API Service",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2241"
+    },
+    {
+      "key": "DHCM-1684",
+      "summary": "BlueBee - SSO Clinician User",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2299"
+    },
+    {
+      "key": "DHCM-1683",
+      "summary": "BlueBee - Get Medication & Exams Prescription",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2299"
+    },
+    {
+      "key": "DHCM-1682",
+      "summary": "BlueBee - Create & Update Clinical Record",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2299"
+    },
+    {
+      "key": "DHCM-1642",
+      "summary": "Gestão Manual Ofertas Tyto - piloto Saúde Prime [25/12/24-14/01/25]",
+      "status": "In Progress",
+      "epicKey": "GDP-336"
+    },
+    {
+      "key": "DHCM-1631",
+      "summary": "Health Pack - Clinical Management - Points by appointment",
+      "status": "In Technical Analysis",
+      "epicKey": "GDP-336"
+    },
+    {
+      "key": "DHCM-1620",
+      "summary": "Health Assessment - Algorithm definition/implementation",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1617",
+      "summary": "Group type by Service - algorithm Assessment",
+      "status": "Backlog",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1610",
+      "summary": "Create Questionnaire - NIF optional",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2240"
+    },
+    {
+      "key": "DHCM-1609",
+      "summary": "Rever localização menu Gestão de Produtos",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1598",
+      "summary": "Health Assessments - Assessment preview - Send button",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1591",
+      "summary": "Remarcação de Sessão de Grupo (CM)",
+      "status": "Implemented",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1589",
+      "summary": "Dados VBH - EHR to Datamart (questionários)",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1588",
+      "summary": "Changes requested DH54",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1586",
+      "summary": "Reorganize Clinical Management Menus",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1583",
+      "summary": "Dados VBH - EHR to Datamart",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1565",
+      "summary": "Questionários (FH2)",
+      "status": "DEV Refused",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1564",
+      "summary": "Visualização/Edição de Sessão de Grupo (FH2)",
+      "status": "Train Refused",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1563",
+      "summary": "Schedulers",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2279"
+    },
+    {
+      "key": "DHCM-1557",
+      "summary": "RMO Devices - Subscription without copayment - gift",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-2295"
+    },
+    {
+      "key": "DHCM-1555",
+      "summary": "Emails & Get Offer by Group - group concatenated",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1554",
+      "summary": "Clinical Management - Follow up Area - new",
+      "status": "Backlog",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1550",
+      "summary": "Clinical Management - Create Appointment - show availability on Calendar",
+      "status": "In Technical Analysis",
+      "epicKey": "DHCM-1860"
+    },
+    {
+      "key": "DHCM-1540",
+      "summary": "Client Portal - Health Graphic - new parameter - Lipids",
+      "status": "Backlog",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1539",
+      "summary": "Time registration by user",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1533",
+      "summary": "Novo Serviço - Acompanhamento Anual",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1516",
+      "summary": "Pedido Medicação / Packs - Adicionar ato médico Euristica ",
+      "status": "Backlog",
+      "epicKey": "DHCM-2092"
+    },
+    {
+      "key": "DHCM-1482",
+      "summary": "Reuniões [DH72-01]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1479",
+      "summary": "Implement Automatic Validation - Health Assessments [DH72-03]",
+      "status": "Backlog",
+      "epicKey": "DHCM-2302"
+    },
+    {
+      "key": "DHCM-1467",
+      "summary": "Serviços por cartão - Menus Portal configs por Apólice ou Produto",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1432",
+      "summary": "Id Questionário guardado no grupo",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1430",
+      "summary": "Retirar Entidade ecrã Dismetabolismo",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1429",
+      "summary": "Ofertas Packs/Entidade",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1428",
+      "summary": "Email boas vindas - templates por entidade/grupo em bd",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1426",
+      "summary": "Clientes potencias",
+      "status": "DEV Approved",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1425",
+      "summary": "Botão ação altera grupo - limitado por perfil",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1424",
+      "summary": "Campo Tipo de Avaliação - oferta oferta de serviços",
+      "status": "QA Refused",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1353",
+      "summary": "Clinical Management - Nota Clinica",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1352",
+      "summary": "Ter dados EHR prontamente disponíveis (dados temporários em tabelas)",
+      "status": "Backlog",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1349",
+      "summary": "Clinical Management - Medicação Interrupt",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1348",
+      "summary": "Clinical Management - Medicação Add",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1347",
+      "summary": "Clinical Management - Medicação View e Edit",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1346",
+      "summary": "Clinical Management - Medicação",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1345",
+      "summary": "Clinical Management - Calculadora",
+      "status": "Backlog",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1342",
+      "summary": "Portal Cliente - Objetivos SMART",
+      "status": "Backlog",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1340",
+      "summary": "Clinical Management - tab Histórico Objetivo",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1339",
+      "summary": "Clinical Management - Eliminar Objetivo",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1338",
+      "summary": "Clinical Management - Inserir Objetivo",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1337",
+      "summary": "Clinical Management - Ecrã Objetivos SMART (View e Edit)",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1336",
+      "summary": "Clinical Management - Ecrã Objetivos SMART",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1335",
+      "summary": "Clinical Management - Tab Histórico Rastreio",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1334",
+      "summary": "Clinical Management - Eliminar Rastreio",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1333",
+      "summary": "Clinical Management - Inserir Rastreio",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1332",
+      "summary": "Clinical Management - Ecrã Rastreios detalhe e Editar",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1331",
+      "summary": "Clinical Management - Ecrã Rastreios",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2304"
+    },
+    {
+      "key": "DHCM-1330",
+      "summary": "Clinical Management - Nova estrutura Registo Clinico Cliente",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2303"
+    },
+    {
+      "key": "DHCM-1328",
+      "summary": "Gestão de tabelas e filtros em Clinical Management e Portal Cliente",
+      "status": "Backlog",
+      "epicKey": "DHCM-1856"
+    },
+    {
+      "key": "DHCM-1293",
+      "summary": "Análise e Desenho [DH81]",
+      "status": "Backlog",
+      "epicKey": "DHCM-2300"
+    },
+    {
+      "key": "DHCM-1285",
+      "summary": "Formação interna",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-1283",
+      "summary": "Formação interna",
+      "status": "Backlog",
+      "epicKey": null
+    },
+    {
+      "key": "DHCM-1268",
+      "summary": "Ação reabrir pedido",
+      "status": "Backlog",
+      "epicKey": "DHCM-2092"
+    },
+    {
+      "key": "DHCM-1255",
+      "summary": "Configured Last Answers by Questionnaire - Y/N",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2307"
+    },
+    {
+      "key": "DHCM-1217",
+      "summary": "Não eliminar questões e respostas se ja utilizadas num template.",
+      "status": "Backlog",
+      "epicKey": "DHCM-2245"
+    },
+    {
+      "key": "DHCM-1213",
+      "summary": "Análise Requisitos [DH76]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2243"
+    },
+    {
+      "key": "DHCM-1184",
+      "summary": "Análise e Desenho [DH70]",
+      "status": "Backlog",
+      "epicKey": "DHCM-2297"
+    },
+    {
+      "key": "DHCM-1131",
+      "summary": "Configuração da FHvc no Ambiente Demo Internacional [DH68]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2301"
+    },
+    {
+      "key": "DHCM-1109",
+      "summary": "Análise e Definição de Requisitos [DH50]",
+      "status": "Backlog",
+      "epicKey": "DHCM-2281"
+    },
+    {
+      "key": "DHCM-1078",
+      "summary": "Documentation Review [DH62]",
+      "status": "Backlog",
+      "epicKey": "DHCM-2282"
+    },
+    {
+      "key": "DHCM-1066",
+      "summary": "Definição e Análise de Requisitos [DH59]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2285"
+    },
+    {
+      "key": "DHCM-1064",
+      "summary": "Gestão do Projeto [DH45]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2237"
+    },
+    {
+      "key": "DHCM-1050",
+      "summary": "Definição e Análise de Requisitos [DH45]",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2237"
+    },
+    {
+      "key": "DHCM-1048",
+      "summary": "Desenvolvimento [DH45]",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2237"
+    },
+    {
+      "key": "DHCM-1047",
+      "summary": "Testes e Correções [DH45]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2237"
+    },
+    {
+      "key": "DHCM-1046",
+      "summary": "Desenvolvimento",
+      "status": "On Hold",
+      "epicKey": "DHCM-2277"
+    },
+    {
+      "key": "DHCM-1028",
+      "summary": "Venda Tyto - utilização própria",
+      "status": "Backlog",
+      "epicKey": "DHCM-2236"
+    },
+    {
+      "key": "DHCM-1012",
+      "summary": "Telefone estrangeiro e código postal Morada",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2292"
+    },
+    {
+      "key": "DHCM-1011",
+      "summary": "Inclusão NIFs estrangeiros",
+      "status": "On Hold",
+      "epicKey": "DHCM-2292"
+    },
+    {
+      "key": "DHCM-1008",
+      "summary": "Origem da Marcação - Entidade",
+      "status": "Ready for Development",
+      "epicKey": "DHCM-2293"
+    },
+    {
+      "key": "DHCM-1362",
+      "summary": "Análise de Requisitos [DH56]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2277"
+    },
+    {
+      "key": "DHCM-1489",
+      "summary": "Desenvolvimento [DH46]",
+      "status": "Backlog",
+      "epicKey": "DHCM-2298"
+    },
+    {
+      "key": "DHCM-1490",
+      "summary": "Testes e Correções [DH46]",
+      "status": "Backlog",
+      "epicKey": "DHCM-2298"
+    },
+    {
+      "key": "DHCM-1491",
+      "summary": "Deploy Produção [DH46]",
+      "status": "Backlog",
+      "epicKey": "DHCM-2298"
+    },
+    {
+      "key": "DHCM-1485",
+      "summary": "Análise de Requisitos [DH46]",
+      "status": "In Progress",
+      "epicKey": "DHCM-2298"
+    },
+    {
+      "key": "DHCM-766",
+      "summary": "Escala - uploadDoctorScaleDocument",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-751",
+      "summary": "Escala - fh-telemedicine-service.getContent()",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-758",
+      "summary": "Escala -deleteDoctorScheduleDocument",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-761",
+      "summary": "Escala -  cm_doctor_schedule_document",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-754",
+      "summary": "Escala - Permissões",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-756",
+      "summary": "Escala -updateDoctorScheduleDocument",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-745",
+      "summary": "Escala - getDoctorScheduleDocument",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-748",
+      "summary": "Escala -listDoctorScheduleDocuments",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-743",
+      "summary": "Escala - Novo ecrã upload de documentos",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-744",
+      "summary": "Escala - Novo ecrã - Escala equipa Clinica",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-749",
+      "summary": "Escala - Novo separador “Administrativo“",
+      "status": "Backlog",
+      "epicKey": "DHCM-2287"
+    },
+    {
+      "key": "DHCM-597",
+      "summary": "Tabelas",
+      "status": "Implemented",
+      "epicKey": "DHCM-2267"
+    },
+    {
+      "key": "DHCM-4",
+      "summary": "fhvc-service - Alteração da API  de login",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2262"
+    },
+    {
+      "key": "DHCM-3",
+      "summary": "CI - Ecrã de Login envia identificador(partnership) da companhia no pedido de login.",
+      "status": "QA Testing",
+      "epicKey": "DHCM-2262"
+    },
+    {
+      "key": "DHCM-526",
+      "summary": "Serviço Telemedicina",
+      "status": "Implemented",
+      "epicKey": "DHCM-2267"
+    },
+    {
+      "key": "DHCM-523",
+      "summary": "Serviço FHVC",
+      "status": "Implemented",
+      "epicKey": "DHCM-2267"
+    },
+    {
+      "key": "DHCM-528",
+      "summary": "CI",
+      "status": "Implemented",
+      "epicKey": "DHCM-2267"
+    },
+    {
+      "key": "DHCM-510",
+      "summary": "Gestão clinica",
+      "status": "Backlog",
+      "epicKey": "DHCM-2234"
+    }
+  ],
+  "syncedAt": "2026-04-14T22:13:57.095Z",
+  "publishedAt": "2026-04-14T22:14:26.615Z"
+}
