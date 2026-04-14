@@ -112,12 +112,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
 .legend-pct{font-size:10px;color:var(--dim);min-width:34px;text-align:right;}
 
 /* ── STATUS SECTIONS ── */
-.status-section{margin-bottom:28px;}
+.status-section{margin-bottom:24px;}
 .status-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--brd);}
 .status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .status-name{font-size:13px;font-weight:600;}
 .status-cnt{font-size:11px;color:var(--mut);background:var(--surf3);padding:2px 9px;border-radius:20px;}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;}
+
+/* ── TWO-COLUMN STATUS LAYOUT ── */
+.two-col-layout{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;align-items:start;}
+.two-col-layout .col{min-width:0;}
+@media(max-width:900px){.two-col-layout{grid-template-columns:1fr;}}
 
 /* ── EPIC CARD ── */
 .epic-card{background:var(--surf);border:1px solid var(--brd);border-left:3px solid var(--blue);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:10px;transition:transform 0.1s;}
@@ -162,9 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
     <div class="sync-chip" id="syncDate">Sem dados</div>
     <div class="sync-chip" id="syncSource" style="color:var(--dim)"></div>
   </div>
-  <button class="btn" id="syncBtn" onclick="startJiraSync()">
-    <span class="btn-ico" id="syncIco">🔄</span> Sync Jira
-  </button>
+
   <span class="admin-badge" id="adminBadge" onclick="deactivateAdmin()">🔒 Admin ✕</span>
 </div>
 
@@ -198,9 +201,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
           <button class="btn primary" id="syncBtnAdmin" onclick="startJiraSync()">
             <span class="btn-ico" id="syncIcoAdmin">🔄</span> Sync do Jira
           </button>
-          <label class="toggle-row" onclick="toggleShowClosed()">
+          <label class="toggle-row" onclick="toggleIncludeClosed()">
             <div class="toggle-sw" id="closedToggle"></div>
-            <span style="font-size:12px;color:var(--mut)">Mostrar Closed/Done/Canceled</span>
+            <span style="font-size:12px;color:var(--mut)">Incluir Closed / Done / Canceled no sync</span>
           </label>
         </div>
         <div class="status-line" id="syncStatus"></div>
@@ -262,7 +265,8 @@ const S = {
   epics: [], stories: [],
   syncedAt: null, syncSource: null,
   tab: 'resumo',
-  isAdmin: false, showClosed: false,
+  isAdmin: false,
+  includeClosed: false,   // filter applied at SYNC time (not render time)
   logoClicks: 0, logoTimer: null,
   syncing: false
 };
@@ -276,20 +280,47 @@ const CLOUD_ID   = 'be351f67-eb21-402c-b8bb-7bd9c91b6d72';
 const GH_LS = 'dh_dash_gh';
 
 const STATUS_COLORS = {
-  'backlog':'#64748b','to do':'#64748b','in progress':'#3b82f6',
-  'in technical analysis':'#a855f7','qa testing':'#06b6d4','qa approved':'#2dd4a0',
-  'ready for go live':'#22c55e','in review':'#06b6d4','on hold':'#f59e0b',
-  'done':'#22c55e','closed':'#4b5563','canceled':'#4b5563','cancelled':'#4b5563',
-  'resolved':'#4b5563','implemented':'#10b981','dev testing':'#8b5cf6',
-  'dev approved':'#2dd4a0','train testing':'#f97316','business requirements':'#ec4899',
+  // Backlog / early stages
+  'backlog':'#64748b','to do':'#64748b','pending approval':'#94a3b8',
+  // Analysis
+  'in business requirements':'#8b5cf6','in technical analysis':'#a855f7',
+  'in team arch analysis':'#c084fc','ready for development':'#6366f1',
+  // Active dev
+  'in progress':'#3b82f6','tech review':'#60a5fa',
+  'dev refused':'#f87171','dev testing':'#818cf8','dev approved':'#34d399',
+  // QA
+  'ready for qa':'#22d3ee','qa testing':'#06b6d4',
+  'qa refused':'#fb923c','qa approved':'#2dd4a0',
+  // Train / release
+  'train testing':'#f97316','train refused':'#ef4444',
+  'ready for go live':'#22c55e','implemented':'#10b981',
+  // Terminal
+  'on hold':'#f59e0b','cancelled':'#4b5563','closed':'#374151',
+  // Legacy / keep
+  'done':'#22c55e','canceled':'#4b5563','resolved':'#4b5563',
   'pending fh':'#d97706','pending asp':'#b45309',
 };
-const STATUS_ORDER = [
-  'In Progress','In Technical Analysis','QA Testing','QA Approved',
-  'Dev Testing','Dev Approved','Train Testing','Ready for Go Live',
-  'Implemented','In Review','Business Requirements','Pending FH','Pending ASP',
-  'Backlog','To Do','On Hold','Done','Closed','Canceled','Cancelled','Resolved'
+const STATUS_ORDER_EPICS = [
+  'Ready For Go Live','Train Refused','Train Testing',
+  'QA Approved','QA Refused','QA Testing',
+  'On Hold','Implemented','In Progress',
+  'Ready For Development','In Technical Analysis','In Business Requirements',
+  'Pending Approval','To Do','Backlog',
+  'Cancelled','Closed'
 ];
+
+const STATUS_ORDER_STORIES = [
+  'Ready For Go Live','Train Refused','Train Testing',
+  'QA Approved','QA Refused','QA Testing','Ready For QA',
+  'On Hold','Dev Approved','Dev Testing','Dev Refused',
+  'Tech Review','Implemented','In Progress',
+  'Ready For Development','In Team Arch Analysis','In Technical Analysis',
+  'In Business Requirements','Backlog',
+  'Cancelled','Closed'
+];
+
+// Combined for colour lookups
+const STATUS_ORDER = [...new Set([...STATUS_ORDER_EPICS, ...STATUS_ORDER_STORIES])];
 const AUTO_COLORS = ['#3b82f6','#a855f7','#06b6d4','#f59e0b','#ec4899','#10b981','#f97316','#8b5cf6'];
 const colorCache = {}; let autoIdx = 0;
 
@@ -351,17 +382,21 @@ function activateAdmin() {
 }
 
 function deactivateAdmin() {
-  S.isAdmin = false; S.showClosed = false;
+  S.isAdmin = false;
   document.getElementById('adminBadge').style.display = 'none';
   document.getElementById('adminPanel').classList.remove('visible');
-  document.getElementById('closedToggle').classList.remove('on');
-  renderEpics(); renderStories();
 }
 
-function toggleShowClosed() {
-  S.showClosed = !S.showClosed;
-  document.getElementById('closedToggle').classList.toggle('on', S.showClosed);
-  renderEpics(); renderStories();
+function toggleIncludeClosed() {
+  S.includeClosed = !S.includeClosed;
+  document.getElementById('closedToggle').classList.toggle('on', S.includeClosed);
+  // Warn user that they need to re-sync to apply the change
+  setSyncStatus(
+    S.includeClosed
+      ? 'Closed/Done/Canceled será incluído no próximo Sync.'
+      : 'Closed/Done/Canceled será excluído no próximo Sync.',
+    'warn'
+  );
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -427,34 +462,39 @@ async function startJiraSync() {
   }, 90000);
 
   try {
-    setSyncStatus('A carregar Epics...', '');
-    const epics = await jiraCall('epics',
-      `Query Jira DHCM Epics. Call searchJiraIssuesUsingJql:
-cloudId="${CLOUD_ID}", jql="project = DHCM AND issuetype = Epic ORDER BY created DESC",
-fields=["summary","status"], maxResults=100.
-Return ONLY a raw JSON array (no markdown, no text):
-[{"key":"DHCM-NNN","summary":"...","status":"In Progress"}]`);
+    // ── Paginated fetch: Epics ──────────────────────────
+    setSyncStatus('A carregar Epics (página 1)...', '');
+    const closedFilter = S.includeClosed ? '' : ' AND statusCategory != Done AND status not in (Closed, Canceled, Cancelled, Resolved)';
+    const epics = await fetchAllPages('epics',
+      'project = DHCM AND issuetype = Epic ORDER BY created DESC' + closedFilter,
+      '["summary","status"]',
+      '{"key":"DHCM-NNN","summary":"...","status":"In Progress"}',
+      'epicKey nao aplicavel para epics — omitir este campo.',
+      (page, total) => setSyncStatus('A carregar Epics — pagina ' + page + ' (' + total + ' ate agora)...', '')
+    );
 
-    setSyncStatus(`${epics.length} epics · A carregar Stories...`, '');
-    const stories = await jiraCall('stories',
-      `Query Jira DHCM Stories. Call searchJiraIssuesUsingJql:
-cloudId="${CLOUD_ID}", jql="project = DHCM AND issuetype = Story ORDER BY created DESC",
-fields=["summary","status","customfield_10005","parent"], maxResults=100.
-epicKey = customfield_10005 value first; else parent.key; else null.
-Return ONLY a raw JSON array (no markdown, no text):
-[{"key":"DHCM-NNN","summary":"...","status":"Backlog","epicKey":"DHCM-NNN"}]`);
+    // ── Paginated fetch: Stories ────────────────────────
+    setSyncStatus(epics.length + ' epics · A carregar Stories (pagina 1)...', '');
+    const stories = await fetchAllPages('stories',
+      'project = DHCM AND issuetype = Story ORDER BY created DESC' + closedFilter,
+      '["summary","status","customfield_10005","parent"]',
+      '{"key":"DHCM-NNN","summary":"...","status":"Backlog","epicKey":"DHCM-NNN"}',
+      'epicKey = customfield_10005 primeiro; se ausente, parent.key; se nenhum, null.',
+      (page, total) => setSyncStatus(epics.length + ' epics · A carregar Stories — pagina ' + page + ' (' + total + ' ate agora)...', '')
+    );
 
-    S.epics    = epics;
-    S.stories  = stories;
+    S.epics     = epics;
+    S.stories   = stories;
     S.syncedAt  = new Date().toISOString();
     S.syncSource = 'Jira (live)';
 
     renderAll();
     updatePublishBtn();
-    setSyncStatus(`✓ ${epics.length} epics · ${stories.length} stories · ${fmtDate(S.syncedAt)}`, 'ok');
-    showNotice('ok', `✓ Sync concluído — ${epics.length} epics · ${stories.length} stories. Agora clica em <strong>Publicar no GitHub</strong> para guardar e partilhar.`);
+    setSyncStatus('\u2713 ' + epics.length + ' epics \u00b7 ' + stories.length + ' stories \u00b7 ' + fmtDate(S.syncedAt), 'ok');
+    const closedNote = S.includeClosed ? ' (incl. Closed/Done/Canceled)' : ' (apenas issues abertos)';
+    showNotice('ok', '\u2713 Sync conclu\u00eddo \u2014 ' + epics.length + ' epics \u00b7 ' + stories.length + ' stories' + closedNote + '. Agora clica em <strong>Publicar no GitHub</strong> para guardar e partilhar.');
 
-  } catch(err) {
+    } catch(err) {
     setSyncStatus('Erro: ' + err.message, 'err');
     showNotice('err', '⚠ Erro no sync: ' + esc(err.message));
   } finally {
@@ -464,12 +504,72 @@ Return ONLY a raw JSON array (no markdown, no text):
   }
 }
 
-async function jiraCall(label, prompt) {
+/* Fetch ALL pages for a given JQL — paginates automatically (100/page) */
+async function fetchAllPages(label, jql, fields, exampleItem, epicKeyNote, onProgress) {
+  const PAGE_SIZE = 100;
+  let allItems = [];
+  let startAt  = 0;
+  let page     = 1;
+  let hasMore  = true;
+
+  while (hasMore) {
+    onProgress && onProgress(page, allItems.length);
+
+    const prompt = `Query Jira DHCM ${label}.
+Call searchJiraIssuesUsingJql with:
+  cloudId   = "${CLOUD_ID}"
+  jql       = "${jql}"
+  fields    = ${fields}
+  maxResults = ${PAGE_SIZE}
+  startAt   = ${startAt}
+
+${epicKeyNote}
+
+The response will include: total, startAt, maxResults, isLast (or issues array length).
+Return ONLY a JSON object (no markdown, no text, no backticks):
+{
+  "items": [${exampleItem}],
+  "total": 999,
+  "isLast": false
+}
+If there are no more results, set "isLast": true.`;
+
+    const pageData = await jiraCall(label + ' p' + page, prompt, true);
+    const items  = pageData.items  || pageData; // fallback: plain array
+    const total  = pageData.total;
+    const isLast = pageData.isLast;
+
+    if (Array.isArray(items)) allItems = allItems.concat(items);
+    else { allItems = allItems.concat(pageData); hasMore = false; break; }
+
+    // Determine if there are more pages
+    if (isLast === true || isLast === 'true') {
+      hasMore = false;
+    } else if (typeof total === 'number') {
+      startAt += items.length;
+      hasMore = startAt < total && items.length > 0;
+    } else {
+      // No total info — stop if we got fewer than PAGE_SIZE
+      hasMore = items.length >= PAGE_SIZE;
+      startAt += items.length;
+    }
+
+    page++;
+
+    // Safety: never more than 20 pages (2000 issues)
+    if (page > 20) { console.warn('[DH Dashboard] Safety limit: stopped at 20 pages'); break; }
+  }
+
+  return allItems;
+}
+
+/* Single Jira MCP call — returns parsed JSON (object or array) */
+async function jiraCall(label, prompt, expectObject) {
   const body = {
     model: 'claude-sonnet-4-20250514',
     max_tokens: 16000,
     system: prompt,
-    messages: [{ role: 'user', content: 'Execute the query and return the JSON array now.' }],
+    messages: [{ role: 'user', content: 'Execute the query and return the JSON now.' }],
     mcp_servers: [{ type: 'url', url: 'https://mcp.atlassian.com/v1/sse', name: 'atlassian-mcp' }]
   };
 
@@ -486,24 +586,74 @@ async function jiraCall(label, prompt) {
 
   const result = await resp.json();
   const text = (result.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
-  if (!text.trim()) throw new Error('Resposta vazia para ' + label + '. O MCP Atlassian está autorizado? (Settings → Integrations → Atlassian)');
-  return parseJSONArray(text, label);
+
+  if (!text.trim()) {
+    throw new Error('Resposta vazia para ' + label +
+      '. O MCP Atlassian está autorizado? Vai a Settings → Integrations → Atlassian e reauthoriza.');
+  }
+
+  if (result.stop_reason === 'max_tokens') {
+    console.warn('[DH Dashboard] ' + label + ': stop_reason=max_tokens — resposta pode estar truncada.');
+  }
+
+  return expectObject ? parseJSONObject(text, label) : parseJSONArray(text, label);
+}
+
+/* Parse a JSON object response (paginated call returns {items, total, isLast}) */
+function parseJSONObject(raw, label) {
+  let clean = raw.trim().replace(/^```json\s*/i,'').replace(/\s*```\s*$/i,'').trim();
+  const start = clean.indexOf('{');
+  const end   = clean.lastIndexOf('}');
+  if (start === -1) {
+    // Model may have returned a plain array instead of object — fall back
+    if (clean.indexOf('[') !== -1) return parseJSONArray(clean, label);
+    throw new Error('Resposta inesperada para ' + label + ': ' + clean.slice(0,120));
+  }
+  try { return JSON.parse(clean.slice(start, end + 1)); }
+  catch(e) { throw new Error('Falha ao processar JSON de ' + label + ': ' + e.message); }
 }
 
 function parseJSONArray(raw, label) {
+  // 1. Strip markdown fences
   let clean = raw.trim().replace(/^```json\s*/i,'').replace(/\s*```\s*$/i,'').trim();
+
+  // 2. Find the first '[' that starts a real JSON array
+  //    (skip any preamble text the model may have added)
   const start = clean.indexOf('[');
-  if (start === -1) throw new Error('Array JSON não encontrado na resposta de ' + label);
+  if (start === -1) {
+    // Check if the response looks like an Atlassian/MCP error
+    if (clean.toLowerCase().includes('atlassian') || clean.toLowerCase().includes('error') || clean.toLowerCase().includes('unauthorized')) {
+      throw new Error('O MCP Atlassian devolveu um erro: ' + clean.slice(0, 200) +
+        '. Verifica Settings → Integrations → Atlassian e reauthoriza a ligação.');
+    }
+    throw new Error('Resposta inesperada para ' + label + ': ' + clean.slice(0, 120));
+  }
+
+  // 3. Verify the char at start is truly '[' of an array, not '[Atlassian ...'
+  const candidate = clean.slice(start);
+  if (!candidate.startsWith('[{') && !candidate.startsWith('[]') && !candidate.startsWith('[ {')) {
+    // Looks like "[Atlassian..." or similar non-JSON — surface the real message
+    throw new Error('O MCP Atlassian devolveu texto em vez de JSON para ' + label +
+      '. Reauthoriza em Settings → Integrations → Atlassian. Detalhe: ' + clean.slice(0, 200));
+  }
+
+  // 4. Find proper closing bracket
   const end = clean.lastIndexOf(']');
   let str = end !== -1 ? clean.slice(start, end + 1) : clean.slice(start);
+
+  // 5. Parse as-is
   try { return JSON.parse(str); } catch(_) {}
+
+  // 6. Repair: truncated JSON — find last complete object
   const lastObj = str.lastIndexOf('}');
-  if (lastObj === -1) throw new Error('Resposta corrompida para ' + label);
+  if (lastObj === -1) throw new Error('Resposta corrompida para ' + label + ' (sem objecto completo)');
   try {
     const arr = JSON.parse(str.slice(0, lastObj + 1) + ']');
-    console.warn('[DH Dashboard] ' + label + ': JSON reparado — ' + arr.length + ' items');
+    console.warn('[DH Dashboard] ' + label + ': JSON reparado — ' + arr.length + ' items recuperados.');
     return arr;
-  } catch(e2) { throw new Error('Falha ao processar JSON de ' + label + ': ' + e2.message); }
+  } catch(e2) {
+    throw new Error('Falha ao processar JSON de ' + label + ': ' + e2.message);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -602,8 +752,8 @@ function updateSyncChip() {
 }
 
 function renderTabCounts() {
-  document.getElementById('tc-epics').textContent   = S.epics.filter(e => !isClosed(e.status)).length  || '—';
-  document.getElementById('tc-stories').textContent = S.stories.filter(s => !isClosed(s.status)).length || '—';
+  document.getElementById('tc-epics').textContent   = S.epics.length   || '—';
+  document.getElementById('tc-stories').textContent = S.stories.length || '—';
 }
 
 /* ─── RESUMO ─── */
@@ -663,19 +813,19 @@ function breakdownHTML(issues) {
 
 /* ─── EPICS ─── */
 function renderEpics() {
-  const visible = S.epics.filter(e => S.showClosed || !isClosed(e.status));
+  const visible = S.epics;
   const el = document.getElementById('epicsContent');
-  if (!visible.length) { el.innerHTML = emptyState('🗂', S.epics.length === 0 ? 'Sem epics' : 'Todos os epics estão fechados', S.epics.length === 0 ? 'Faz Sync do Jira no modo Admin' : 'Ativa "Mostrar Closed" no modo Admin para os ver'); return; }
-  const groups = groupByStatus(visible);
-  let html = '';
+  if (!visible.length) { el.innerHTML = emptyState('🗂', 'Sem epics', S.epics.length === 0 ? 'Faz Sync do Jira no modo Admin' : 'Todos os epics no estado atual foram filtrados'); return; }
+  const groups = groupByStatus(visible, STATUS_ORDER_EPICS);
+  const sections = [];
   for (const [status, items] of groups) {
-    const c = statusColor(status);
-    html += `<div class="status-section">
-      <div class="status-header"><div class="status-dot" style="background:${c}"></div><span class="status-name">${esc(status)}</span><span class="status-cnt">${items.length}</span></div>
-      <div class="cards-grid">${items.map(e => epicCard(e, c)).join('')}</div>
-    </div>`;
+    const sc = statusColor(status);
+    sections.push(`<div class="status-section">
+      <div class="status-header"><div class="status-dot" style="background:${sc}"></div><span class="status-name">${esc(status)}</span><span class="status-cnt">${items.length}</span></div>
+      <div class="cards-grid">${items.map(e => epicCard(e, sc)).join('')}</div>
+    </div>`);
   }
-  el.innerHTML = html;
+  el.innerHTML = twoColLayout(sections);
 }
 
 function epicCard(epic, c) {
@@ -698,30 +848,39 @@ function epicCard(epic, c) {
 
 /* ─── STORIES ─── */
 function renderStories() {
-  const visible = S.stories.filter(s => S.showClosed || !isClosed(s.status));
+  const visible = S.stories;
   const el = document.getElementById('storiesContent');
-  if (!visible.length) { el.innerHTML = emptyState('📝', S.stories.length === 0 ? 'Sem stories' : 'Todas as stories estão fechadas', S.stories.length === 0 ? 'Faz Sync do Jira no modo Admin' : 'Ativa "Mostrar Closed" no modo Admin para as ver'); return; }
-  const groups = groupByStatus(visible);
-  let html = '';
+  if (!visible.length) { el.innerHTML = emptyState('📝', 'Sem stories', S.stories.length === 0 ? 'Faz Sync do Jira no modo Admin' : 'Todas as stories no estado atual foram filtradas'); return; }
+  const groups = groupByStatus(visible, STATUS_ORDER_STORIES);
+  const sections = [];
   for (const [status, items] of groups) {
-    const c = statusColor(status);
-    html += `<div class="status-section">
-      <div class="status-header"><div class="status-dot" style="background:${c}"></div><span class="status-name">${esc(status)}</span><span class="status-cnt">${items.length}</span></div>
-      <div class="cards-grid">${items.map(s => storyCard(s, c)).join('')}</div>
-    </div>`;
+    const sc = statusColor(status);
+    sections.push(`<div class="status-section">
+      <div class="status-header"><div class="status-dot" style="background:${sc}"></div><span class="status-name">${esc(status)}</span><span class="status-cnt">${items.length}</span></div>
+      <div class="cards-grid">${items.map(s => storyCard(s, sc)).join('')}</div>
+    </div>`);
   }
-  el.innerHTML = html;
+  el.innerHTML = twoColLayout(sections);
 }
 
 function storyCard(story, c) {
-  const url    = JQL_DOMAIN + '/browse/' + story.key;
-  const epicUrl = story.epicKey ? JQL_DOMAIN + '/browse/' + story.epicKey : null;
-  const bg     = statusColor(story.status) + '28';
+  const url      = JQL_DOMAIN + '/browse/' + story.key;
+  const epicUrl  = story.epicKey ? JQL_DOMAIN + '/browse/' + story.epicKey : null;
+  const bg       = statusColor(story.status) + '28';
+  // Look up epic summary from loaded epics
+  const epicObj  = story.epicKey ? S.epics.find(e => e.key === story.epicKey) : null;
+  const epicName = epicObj ? epicObj.summary : null;
   return `<div class="story-card" style="border-left-color:${c}">
     <div class="card-head"><a href="${url}" target="_blank" class="issue-key">${esc(story.key)}</a><div class="issue-summary">${esc(story.summary)}</div></div>
+    ${epicObj || story.epicKey ? `
+    <div style="display:flex;align-items:center;gap:6px;padding:2px 0">
+      <span style="font-size:10px;color:var(--dim);flex-shrink:0">Epic:</span>
+      <a href="${epicUrl}" target="_blank" class="epic-ref" style="font-size:10px;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(epicName||story.epicKey)}">
+        ${esc(story.epicKey)}${epicName ? ' · ' + esc(epicName) : ''}
+      </a>
+    </div>` : ''}
     <div class="card-foot">
       <span class="status-badge" style="background:${bg};color:${statusColor(story.status)}">${esc(story.status)}</span>
-      ${story.epicKey ? `<a href="${epicUrl}" target="_blank" class="epic-ref">${esc(story.epicKey)}</a>` : ''}
     </div>
   </div>`;
 }
@@ -729,9 +888,19 @@ function storyCard(story, c) {
 /* ═══════════════════════════════════════════════════════
    HELPERS
 ══════════════════════════════════════════════════════ */
-function groupByStatus(items) {
+/* Split sections into two balanced columns */
+function twoColLayout(sections) {
+  if (!sections.length) return '';
+  if (sections.length === 1) return sections[0];
+  // Distribute sections alternately: 0,2,4... left | 1,3,5... right
+  const left  = sections.filter((_, i) => i % 2 === 0).join('');
+  const right = sections.filter((_, i) => i % 2 !== 0).join('');
+  return `<div class="two-col-layout"><div class="col">${left}</div><div class="col">${right}</div></div>`;
+}
+
+function groupByStatus(items, order) {
   const map = new Map();
-  for (const s of STATUS_ORDER) map.set(s, []);
+  for (const s of order) map.set(s, []);
   for (const item of items) {
     const status = item.status || 'Unknown';
     let matched = null;
@@ -739,6 +908,7 @@ function groupByStatus(items) {
     if (matched) { map.get(matched).push(item); }
     else { if (!map.has(status)) map.set(status, []); map.get(status).push(item); }
   }
+  // Remove empty buckets — only show statuses that have items
   for (const [k, arr] of map) if (!arr.length) map.delete(k);
   return map;
 }
@@ -752,8 +922,8 @@ function setSyncStatus(msg, type)    { const el = document.getElementById('syncS
 function setPublishStatus(msg, type) { const el = document.getElementById('publishStatus'); el.textContent = msg; el.className = 'status-line' + (type ? ' '+type : ''); }
 
 function setSyncLoading(v) {
-  ['syncBtn','syncBtnAdmin'].forEach(id => { const b = document.getElementById(id); if(b) b.disabled = v; });
-  ['syncIco','syncIcoAdmin'].forEach(id => { const i = document.getElementById(id); if(i){ i.textContent = v ? '⏳' : '🔄'; i.className = 'btn-ico' + (v ? ' spin' : ''); } });
+  const b = document.getElementById('syncBtnAdmin'); if(b) b.disabled = v;
+  const i = document.getElementById('syncIcoAdmin'); if(i){ i.textContent = v ? '⏳' : '🔄'; i.className = 'btn-ico' + (v ? ' spin' : ''); }
 }
 function setPublishLoading(v) {
   document.getElementById('publishBtn').disabled = v;
