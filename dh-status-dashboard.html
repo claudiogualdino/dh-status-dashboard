@@ -423,7 +423,7 @@ body{
 #loadingOverlay{
   position:fixed;inset:0;
   background:rgba(15,23,41,0.94);
-  display:flex;flex-direction:column;
+  display:none;flex-direction:column;
   align-items:center;justify-content:center;
   gap:16px;z-index:1000;
 }
@@ -694,6 +694,13 @@ async function fetchFromJira() {
   setBtnLoading(true);
   clearErr();
 
+  // Safety net: never stay in loading state longer than 90s
+  const safetyTimer = setTimeout(() => {
+    showLoading(false);
+    setBtnLoading(false);
+    showErr('Timeout (90s) — o servidor não respondeu. Clica em Refresh para tentar novamente.');
+  }, 90000);
+
   try {
     // ── Call 1: Epics ──────────────────────────────────
     setLdStatus('A carregar Epics...');
@@ -728,14 +735,13 @@ Return ONLY this JSON array (no markdown, no text, no backticks):
     S.epics    = epics;
     S.stories  = stories;
     S.fetchedAt = new Date();
-
     renderAll();
-    showLoading(false);
 
   } catch (err) {
-    showLoading(false);
     showErr(err.message);
   } finally {
+    clearTimeout(safetyTimer);
+    showLoading(false);
     setBtnLoading(false);
   }
 }
@@ -1083,7 +1089,8 @@ function downloadJSON() {
 /* ═══════════════════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════════════════ */
-fetchFromJira();
+// Show empty state on load — user clicks Refresh to load from Jira
+renderAll();
 </script>
 </body>
 </html>
