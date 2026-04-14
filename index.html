@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DH Status Dashboard · Future Healthcare</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --bg:#0f1729;
+  --surf:#1a2540;
+  --surf2:#0d1526;
+  --surf3:#243055;
+  --brd:#2d3d5c;
+  --txt:#e2e8f0;
+  --mut:#94a3b8;
+  --dim:#64748b;
+  --fhr:#C41E3A;
+  --green:#2dd4a0;
+  --blue:#3b82f6;
+  --orange:#f59e0b;
+  --purple:#a855f7;
+  --cyan:#06b6d4;
+  --red:#ef4444;
+  --radius:10px;
+}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  min-height:100vh;
+  font-size:14px;
+  line-height:1.5;
+}
+
+/* ── HEADER ─────────────────────────────────────────────── */
+.header{
+  background:var(--surf2);
+  border-bottom:1px solid var(--brd);
+  padding:0 24px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  height:62px;
+  position:sticky;
+  top:0;
+  z-index:200;
+}
+
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  user-select:none;
+  flex-shrink:0;
+}
+
+.logo-fh{
+  width:34px;
+  height:34px;
+  background:var(--fhr);
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:13px;
+  color:#fff;
+  letter-spacing:-0.5px;
+  transition:box-shadow 0.2s;
+}
+
+.logo-fh.pulse{
+  animation:pulse-red 0.5s ease 3;
+}
+@keyframes pulse-red{
+  0%{box-shadow:0 0 0 0 rgba(196,30,58,0.8);}
+  60%{box-shadow:0 0 0 10px rgba(196,30,58,0);}
+  100%{box-shadow:0 0 0 0 rgba(196,30,58,0);}
+}
+
+.header-title{font-size:15px;font-weight:600;}
+.header-sub{font-size:11px;color:var(--mut);}
+.header-spacer{flex:1;}
+
+.sync-chip{
+  font-size:11px;
+  color:var(--dim);
+  font-family:'DM Mono',monospace;
+  background:var(--surf3);
+  border:1px solid var(--brd);
+  padding:3px 10px;
+  border-radius:20px;
+  white-space:nowrap;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 14px;
+  border-radius:7px;
+  border:1px solid var(--brd);
+  background:var(--surf3);
+  color:var(--txt);
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+  transition:all 0.15s;
+  white-space:nowrap;
+}
+.btn:hover{background:var(--surf);border-color:var(--blue);color:var(--blue);}
+.btn:disabled{opacity:0.45;cursor:not-allowed;pointer-events:none;}
+.btn.spin-icon .ico{display:inline-block;animation:spin 0.8s linear infinite;}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.admin-badge{
+  display:none;
+  align-items:center;
+  gap:5px;
+  background:var(--fhr);
+  color:#fff;
+  font-size:10px;
+  font-weight:700;
+  padding:3px 10px;
+  border-radius:20px;
+  cursor:pointer;
+  letter-spacing:0.4px;
+  flex-shrink:0;
+}
+
+/* ── TAB BAR ─────────────────────────────────────────────── */
+.tab-bar{
+  display:flex;
+  gap:2px;
+  padding:12px 24px 0;
+  background:var(--surf2);
+  border-bottom:1px solid var(--brd);
+}
+
+.tab-btn{
+  padding:8px 18px;
+  border-radius:8px 8px 0 0;
+  border:1px solid transparent;
+  border-bottom:none;
+  background:transparent;
+  color:var(--mut);
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+  transition:all 0.15s;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.tab-btn:hover{color:var(--txt);background:var(--surf3);}
+.tab-btn.active{
+  background:var(--bg);
+  color:var(--txt);
+  border-color:var(--brd);
+  border-bottom-color:var(--bg);
+  position:relative;
+  bottom:-1px;
+}
+
+.tab-count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:20px;
+  height:18px;
+  padding:0 5px;
+  border-radius:20px;
+  background:var(--surf3);
+  color:var(--mut);
+  font-size:10px;
+  font-weight:700;
+  transition:all 0.2s;
+}
+.tab-btn.active .tab-count{background:var(--fhr);color:#fff;}
+
+/* ── MAIN ───────────────────────────────────────────────── */
+.main{
+  padding:24px;
+  max-width:1440px;
+  margin:0 auto;
+}
+
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ── ADMIN BAR ──────────────────────────────────────────── */
+.admin-bar{
+  display:none;
+  align-items:center;
+  gap:12px;
+  background:rgba(196,30,58,0.07);
+  border:1px solid rgba(196,30,58,0.25);
+  border-radius:8px;
+  padding:10px 16px;
+  margin-bottom:18px;
+  font-size:12px;
+  color:var(--mut);
+  flex-wrap:wrap;
+}
+.admin-bar.visible{display:flex;}
+.admin-bar-label{font-weight:600;color:var(--fhr);font-size:11px;letter-spacing:0.5px;text-transform:uppercase;}
+.sep{color:var(--brd);}
+
+.toggle-row{display:flex;align-items:center;gap:7px;cursor:pointer;}
+.toggle-sw{
+  width:34px;height:18px;
+  background:var(--brd);
+  border-radius:9px;
+  position:relative;
+  transition:background 0.2s;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.toggle-sw.on{background:var(--fhr);}
+.toggle-sw::after{
+  content:'';
+  position:absolute;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:#fff;
+  top:3px;left:3px;
+  transition:transform 0.2s;
+}
+.toggle-sw.on::after{transform:translateX(16px);}
+
+/* ── KPI CARDS ──────────────────────────────────────────── */
+.kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+@media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:680px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+
+.kpi-card{
+  background:var(--surf);
+  border:1px solid var(--brd);
+  border-radius:var(--radius);
+  padding:16px 18px;
+  border-top:3px solid transparent;
+}
+
+.kpi-label{
+  font-size:10px;
+  font-weight:600;
+  color:var(--mut);
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+  margin-bottom:6px;
+}
+.kpi-value{
+  font-size:34px;
+  font-weight:700;
+  font-family:'DM Mono',monospace;
+  line-height:1;
+  margin-bottom:5px;
+}
+.kpi-sub{font-size:11px;color:var(--dim);}
+
+/* ── BREAKDOWN ──────────────────────────────────────────── */
+.breakdown-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-bottom:0;
+}
+@media(max-width:780px){.breakdown-grid{grid-template-columns:1fr;}}
+
+.breakdown-card{
+  background:var(--surf);
+  border:1px solid var(--brd);
+  border-radius:var(--radius);
+  padding:18px 20px;
+}
+.breakdown-title{
+  font-size:12px;
+  font-weight:600;
+  color:var(--mut);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  margin-bottom:14px;
+}
+.breakdown-bar{
+  height:8px;
+  border-radius:4px;
+  display:flex;
+  gap:2px;
+  overflow:hidden;
+  margin-bottom:14px;
+  background:var(--surf3);
+}
+.bd-seg{height:100%;border-radius:2px;min-width:3px;}
+
+.legend-list{display:flex;flex-direction:column;gap:7px;}
+.legend-row{display:flex;align-items:center;gap:8px;}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.legend-name{flex:1;font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.legend-n{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;}
+.legend-pct{font-size:10px;color:var(--dim);min-width:34px;text-align:right;}
+
+/* ── STATUS SECTIONS ────────────────────────────────────── */
+.status-section{margin-bottom:28px;}
+.status-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--brd);
+}
+.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.status-name{font-size:13px;font-weight:600;}
+.status-cnt{
+  font-size:11px;color:var(--mut);
+  background:var(--surf3);
+  padding:2px 9px;border-radius:20px;
+}
+
+/* ── CARDS GRID ─────────────────────────────────────────── */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:10px;
+}
+
+/* ── EPIC CARD ──────────────────────────────────────────── */
+.epic-card{
+  background:var(--surf);
+  border:1px solid var(--brd);
+  border-left:3px solid var(--blue);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  transition:transform 0.1s,border-color 0.15s;
+}
+.epic-card:hover{transform:translateY(-1px);}
+
+/* ── STORY CARD ─────────────────────────────────────────── */
+.story-card{
+  background:var(--surf);
+  border:1px solid var(--brd);
+  border-left:3px solid var(--purple);
+  border-radius:var(--radius);
+  padding:12px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  transition:transform 0.1s;
+}
+.story-card:hover{transform:translateY(-1px);}
+
+/* shared card internals */
+.card-head{display:flex;align-items:flex-start;gap:8px;}
+.issue-key{
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  font-weight:500;
+  color:var(--blue);
+  text-decoration:none;
+  flex-shrink:0;
+  margin-top:2px;
+}
+.issue-key:hover{text-decoration:underline;}
+.issue-summary{font-size:13px;font-weight:500;line-height:1.4;flex:1;}
+
+.card-foot{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+
+.status-badge{
+  display:inline-flex;align-items:center;
+  padding:2px 9px;border-radius:20px;
+  font-size:10px;font-weight:600;letter-spacing:0.3px;
+  flex-shrink:0;
+}
+
+.story-count{
+  font-size:10px;color:var(--mut);
+  background:var(--surf3);
+  padding:2px 8px;border-radius:20px;
+  display:inline-flex;align-items:center;gap:4px;
+}
+
+.mini-prog-wrap{
+  flex:1;height:4px;
+  background:var(--surf3);
+  border-radius:2px;overflow:hidden;
+  min-width:50px;max-width:90px;
+}
+.mini-prog-fill{height:100%;border-radius:2px;background:var(--green);transition:width 0.3s;}
+
+.epic-ref{
+  font-size:10px;
+  font-family:'DM Mono',monospace;
+  color:var(--mut);
+  background:var(--surf3);
+  padding:2px 7px;border-radius:4px;
+  text-decoration:none;transition:color 0.15s;
+}
+.epic-ref:hover{color:var(--blue);}
+
+.closed-chip{
+  font-size:10px;color:var(--dim);
+  background:var(--surf3);border:1px dashed var(--brd);
+  padding:2px 8px;border-radius:20px;
+}
+
+/* ── LOADING OVERLAY ────────────────────────────────────── */
+#loadingOverlay{
+  position:fixed;inset:0;
+  background:rgba(15,23,41,0.94);
+  display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:16px;z-index:1000;
+}
+.spinner{
+  width:42px;height:42px;
+  border:3px solid var(--brd);
+  border-top-color:var(--fhr);
+  border-radius:50%;
+  animation:spin 0.7s linear infinite;
+}
+.ld-text{font-size:14px;color:var(--mut);font-weight:500;}
+.ld-sub{font-size:11px;color:var(--dim);font-family:'DM Mono',monospace;}
+
+/* ── EMPTY / ERROR ──────────────────────────────────────── */
+.empty-state{
+  text-align:center;
+  padding:48px 24px;
+  color:var(--dim);
+}
+.empty-icon{font-size:36px;margin-bottom:10px;}
+.empty-text{font-size:13px;color:var(--mut);}
+
+.err-banner{
+  background:rgba(239,68,68,0.08);
+  border:1px solid #7f1d1d;
+  border-radius:8px;
+  padding:13px 16px;
+  margin-bottom:18px;
+  font-size:13px;
+  color:#fca5a5;
+  display:flex;align-items:center;gap:10px;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  LOADING OVERLAY                                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <div class="ld-text">A carregar dados do Jira...</div>
+  <div class="ld-sub" id="ldStatus">A conectar ao Atlassian MCP</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  HEADER                                                 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="header">
+  <div class="logo-wrap" id="logoWrap">
+    <div class="logo-fh" id="logoFH">FH</div>
+    <div>
+      <div class="header-title">DH Status Dashboard</div>
+      <div class="header-sub">Digital Health · DHCM Project</div>
+    </div>
+  </div>
+  <div class="header-spacer"></div>
+  <div class="sync-chip" id="syncChip">—</div>
+  <button class="btn" id="refreshBtn" onclick="fetchFromJira()">
+    <span class="ico">🔄</span> Refresh
+  </button>
+  <span class="admin-badge" id="adminBadge" onclick="deactivateAdmin()">🔒 Admin ✕</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  TAB BAR                                                -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-bar">
+  <button class="tab-btn active" id="tb-resumo" onclick="switchTab('resumo')">
+    📊 Resumo
+  </button>
+  <button class="tab-btn" id="tb-epics" onclick="switchTab('epics')">
+    🗂 Epics <span class="tab-count" id="tc-epics">—</span>
+  </button>
+  <button class="tab-btn" id="tb-stories" onclick="switchTab('stories')">
+    📝 Stories <span class="tab-count" id="tc-stories">—</span>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  MAIN                                                   -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="main">
+
+  <!-- Admin bar (hidden until triple-click) -->
+  <div class="admin-bar" id="adminBar">
+    <span class="admin-bar-label">🔒 Admin Mode</span>
+    <span class="sep">|</span>
+    <label class="toggle-row" onclick="toggleShowClosed()">
+      <div class="toggle-sw" id="closedToggle"></div>
+      <span>Mostrar Closed / Done / Canceled</span>
+    </label>
+    <span class="sep">|</span>
+    <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+      <span style="font-size:11px;color:var(--mut);white-space:nowrap;">API Key:</span>
+      <input type="password" id="apiKeyInput" placeholder="sk-ant-…"
+        style="background:var(--surf2);border:1px solid var(--brd);border-radius:6px;
+               padding:4px 10px;color:var(--txt);font-family:'DM Mono',monospace;font-size:11px;
+               width:220px;outline:none;"
+        oninput="saveApiKey(this.value)"
+        onfocus="this.type='text'" onblur="this.type='password'">
+      <span id="apiKeyStatus" style="font-size:10px;color:var(--dim)"></span>
+    </div>
+    <span class="sep">|</span>
+    <span style="color:var(--dim);font-size:11px;">Triple-click no logo para sair</span>
+    <span style="flex:1"></span>
+    <button class="btn" onclick="downloadJSON()">⬇ Exportar JSON</button>
+  </div>
+
+  <!-- Error banner slot -->
+  <div id="errSlot"></div>
+
+  <!-- ─── TAB: RESUMO ─────────────────────────────────── -->
+  <div class="tab-panel active" id="tab-resumo">
+    <div class="kpi-grid" id="kpiGrid">
+      <!-- JS filled -->
+    </div>
+    <div class="breakdown-grid">
+      <div class="breakdown-card">
+        <div class="breakdown-title">Epics · distribuição por status</div>
+        <div class="breakdown-bar" id="epicBar"></div>
+        <div class="legend-list" id="epicLegend"></div>
+      </div>
+      <div class="breakdown-card">
+        <div class="breakdown-title">Stories · distribuição por status</div>
+        <div class="breakdown-bar" id="storyBar"></div>
+        <div class="legend-list" id="storyLegend"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TAB: EPICS ──────────────────────────────────── -->
+  <div class="tab-panel" id="tab-epics">
+    <div id="epicsContent"></div>
+  </div>
+
+  <!-- ─── TAB: STORIES ────────────────────────────────── -->
+  <div class="tab-panel" id="tab-stories">
+    <div id="storiesContent"></div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════ */
+const S = {
+  epics: [],
+  stories: [],
+  fetchedAt: null,
+  tab: 'resumo',
+  isAdmin: false,
+  showClosed: false,
+  logoClicks: 0,
+  logoTimer: null
+};
+
+/* ═══════════════════════════════════════════════════════════
+   CONSTANTS
+══════════════════════════════════════════════════════════ */
+const CLOSED = new Set(['done','closed','canceled','cancelled','resolved']);
+
+const STATUS_COLORS = {
+  'backlog':                   '#64748b',
+  'to do':                     '#64748b',
+  'in progress':               '#3b82f6',
+  'in technical analysis':     '#a855f7',
+  'qa testing':                '#06b6d4',
+  'qa approved':               '#2dd4a0',
+  'ready for go live':         '#22c55e',
+  'in review':                 '#06b6d4',
+  'on hold':                   '#f59e0b',
+  'done':                      '#22c55e',
+  'closed':                    '#4b5563',
+  'canceled':                  '#4b5563',
+  'cancelled':                 '#4b5563',
+  'resolved':                  '#4b5563',
+  'implemented':               '#10b981',
+  'dev testing':               '#8b5cf6',
+  'dev approved':              '#2dd4a0',
+  'train testing':             '#f97316',
+  'business requirements':     '#ec4899',
+  'pending fh':                '#d97706',
+  'pending asp':               '#b45309',
+};
+
+const STATUS_ORDER = [
+  'In Progress','In Technical Analysis','QA Testing','QA Approved',
+  'Dev Testing','Dev Approved','Train Testing','Ready for Go Live',
+  'Implemented','In Review','Business Requirements',
+  'Pending FH','Pending ASP',
+  'Backlog','To Do','On Hold',
+  // Closed ones (shown only in admin mode)
+  'Done','Closed','Canceled','Cancelled','Resolved'
+];
+
+const AUTO_COLORS = ['#3b82f6','#a855f7','#06b6d4','#f59e0b','#ec4899','#10b981','#f97316','#8b5cf6'];
+const colorCache = {};
+let autoIdx = 0;
+
+function statusColor(status) {
+  if (!status) return '#64748b';
+  const k = status.toLowerCase();
+  if (STATUS_COLORS[k]) return STATUS_COLORS[k];
+  if (colorCache[k]) return colorCache[k];
+  colorCache[k] = AUTO_COLORS[autoIdx++ % AUTO_COLORS.length];
+  return colorCache[k];
+}
+
+function isClosed(status) {
+  return CLOSED.has((status||'').toLowerCase());
+}
+
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOGO TRIPLE-CLICK → ADMIN
+══════════════════════════════════════════════════════════ */
+document.getElementById('logoWrap').addEventListener('click', () => {
+  S.logoClicks++;
+  clearTimeout(S.logoTimer);
+  S.logoTimer = setTimeout(() => { S.logoClicks = 0; }, 700);
+  if (S.logoClicks >= 3) {
+    S.logoClicks = 0;
+    if (S.isAdmin) {
+      deactivateAdmin();
+    } else {
+      activateAdmin();
+    }
+  }
+});
+
+function activateAdmin() {
+  S.isAdmin = true;
+  const logo = document.getElementById('logoFH');
+  logo.classList.add('pulse');
+  setTimeout(() => logo.classList.remove('pulse'), 1600);
+  document.getElementById('adminBadge').style.display = 'inline-flex';
+  document.getElementById('adminBar').classList.add('visible');
+  loadSavedApiKey();
+  renderAll();
+}
+
+function deactivateAdmin() {
+  S.isAdmin = false;
+  S.showClosed = false;
+  document.getElementById('adminBadge').style.display = 'none';
+  document.getElementById('adminBar').classList.remove('visible');
+  document.getElementById('closedToggle').classList.remove('on');
+  renderAll();
+}
+
+function toggleShowClosed() {
+  S.showClosed = !S.showClosed;
+  document.getElementById('closedToggle').classList.toggle('on', S.showClosed);
+  renderEpics();
+  renderStories();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TABS
+══════════════════════════════════════════════════════════ */
+function switchTab(tab) {
+  S.tab = tab;
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('tb-' + tab).classList.add('active');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   API KEY  (stored in localStorage for GitHub Pages use)
+══════════════════════════════════════════════════════════ */
+const LS_KEY = 'dh_dashboard_apikey';
+
+function getApiKey() {
+  return localStorage.getItem(LS_KEY) || '';
+}
+
+function saveApiKey(val) {
+  val = val.trim();
+  if (val) {
+    localStorage.setItem(LS_KEY, val);
+    document.getElementById('apiKeyStatus').textContent = '✓ guardada';
+    document.getElementById('apiKeyStatus').style.color = 'var(--green)';
+  } else {
+    localStorage.removeItem(LS_KEY);
+    document.getElementById('apiKeyStatus').textContent = '✗ vazia';
+    document.getElementById('apiKeyStatus').style.color = 'var(--dim)';
+  }
+}
+
+function loadSavedApiKey() {
+  const k = getApiKey();
+  const input = document.getElementById('apiKeyInput');
+  if (input && k) {
+    input.value = k;
+    document.getElementById('apiKeyStatus').textContent = '✓ guardada';
+    document.getElementById('apiKeyStatus').style.color = 'var(--green)';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FETCH FROM JIRA  (two separate calls: Epics + Stories)
+══════════════════════════════════════════════════════════ */
+async function fetchFromJira() {
+  // Warn if no API key (only matters on GitHub Pages / standalone)
+  if (!getApiKey() && !window.location.href.includes('claude.ai')) {
+    const proceed = window.confirm(
+      'Nenhuma API key configurada.\n\n' +
+      'Se estás no claude.ai, podes ignorar este aviso e continuar.\n' +
+      'Se estás no GitHub Pages, abre o modo Admin (triple-click no logo FH) ' +
+      'e introduz a tua Anthropic API key primeiro.\n\n' +
+      'Continuar mesmo assim?'
+    );
+    if (!proceed) return;
+  }
+  showLoading(true, 'A conectar ao Atlassian MCP...');
+  setBtnLoading(true);
+  clearErr();
+
+  // Safety net: never stay in loading state longer than 90s
+  const safetyTimer = setTimeout(() => {
+    showLoading(false);
+    setBtnLoading(false);
+    showErr('Timeout (90s) — o servidor não respondeu. Clica em Refresh para tentar novamente.');
+  }, 90000);
+
+  try {
+    // ── Call 1: Epics ──────────────────────────────────
+    setLdStatus('A carregar Epics...');
+    const epics = await jiraCall(
+      'project = DHCM AND issuetype = Epic ORDER BY created DESC',
+      ['summary','status'],
+      'epics',
+      `Query Jira for DHCM Epics.
+Use searchJiraIssuesUsingJql with cloudId="be351f67-eb21-402c-b8bb-7bd9c91b6d72",
+jql="project = DHCM AND issuetype = Epic ORDER BY created DESC",
+fields=["summary","status"], maxResults=100.
+Return ONLY this JSON array (no markdown, no text, no backticks):
+[{"key":"DHCM-NNN","summary":"...","status":"In Progress"}]`
+    );
+
+    // ── Call 2: Stories ────────────────────────────────
+    setLdStatus('A carregar Stories... (' + epics.length + ' epics encontrados)');
+    const stories = await jiraCall(
+      'project = DHCM AND issuetype = Story ORDER BY created DESC',
+      ['summary','status','customfield_10005','parent'],
+      'stories',
+      `Query Jira for DHCM Stories.
+Use searchJiraIssuesUsingJql with cloudId="be351f67-eb21-402c-b8bb-7bd9c91b6d72",
+jql="project = DHCM AND issuetype = Story ORDER BY created DESC",
+fields=["summary","status","customfield_10005","parent"], maxResults=100.
+For epicKey: use customfield_10005 value first; if absent use parent.key; if neither, use null.
+Return ONLY this JSON array (no markdown, no text, no backticks):
+[{"key":"DHCM-NNN","summary":"...","status":"Backlog","epicKey":"DHCM-NNN"}]`
+    );
+
+    setLdStatus('A renderizar...');
+    S.epics    = epics;
+    S.stories  = stories;
+    S.fetchedAt = new Date();
+    renderAll();
+
+  } catch (err) {
+    showErr(err.message);
+  } finally {
+    clearTimeout(safetyTimer);
+    showLoading(false);
+    setBtnLoading(false);
+  }
+}
+
+/* ── Single Jira MCP call ─────────────────────────────────── */
+async function jiraCall(jql, fields, label, prompt) {
+  const body = {
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 16000,
+    system: prompt,
+    messages: [{ role: 'user', content: 'Execute the query and return the JSON array now.' }],
+    mcp_servers: [
+      { type: 'url', url: 'https://mcp.atlassian.com/v1/sse', name: 'atlassian-mcp' }
+    ]
+  };
+
+  const apiKey = getApiKey();
+  const headers = { 'Content-Type': 'application/json' };
+  if (apiKey) headers['x-api-key'] = apiKey;
+
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(body)
+  });
+
+  if (!resp.ok) {
+    const e = await resp.json().catch(() => ({}));
+    throw new Error((e.error?.message || 'HTTP ' + resp.status) +
+      ' — Verifica se o MCP Atlassian está autorizado (Settings → Integrations → Atlassian).');
+  }
+
+  const result = await resp.json();
+
+  // Collect all text blocks (model may emit multiple after tool use)
+  const text = (result.content || [])
+    .filter(b => b.type === 'text')
+    .map(b => b.text)
+    .join('');
+
+  if (!text.trim()) {
+    throw new Error('Resposta vazia para ' + label +
+      '. Verifica a autorização do MCP Atlassian em Settings → Integrations.');
+  }
+
+  return parseJSONArray(text, label);
+}
+
+/* ── Robust JSON array extractor + repair ─────────────────── */
+function parseJSONArray(raw, label) {
+  // 1. Strip markdown fences
+  let clean = raw.trim()
+    .replace(/^```json\s*/i, '').replace(/\s*```\s*$/i, '').trim();
+
+  // 2. Find the array boundaries
+  const start = clean.indexOf('[');
+  if (start === -1) throw new Error('Array JSON não encontrado na resposta de ' + label);
+
+  // 3. Find the proper closing bracket (may be truncated)
+  let end = clean.lastIndexOf(']');
+  let str = end !== -1 ? clean.slice(start, end + 1) : clean.slice(start);
+
+  // 4. Try to parse as-is first
+  try { return JSON.parse(str); } catch (_) { /* fall through to repair */ }
+
+  // 5. Repair: find the last complete object (ends with }) then close the array
+  const lastObj = str.lastIndexOf('}');
+  if (lastObj === -1) throw new Error('Não foi possível recuperar dados de ' + label + ' — resposta corrompida.');
+  const repaired = str.slice(0, lastObj + 1) + ']';
+
+  try {
+    const arr = JSON.parse(repaired);
+    console.warn('[DH Dashboard] ' + label + ': JSON reparado — ' + arr.length + ' items recuperados (resposta truncada).');
+    return arr;
+  } catch (e2) {
+    throw new Error('Falha ao processar JSON de ' + label + ': ' + e2.message);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER ALL
+══════════════════════════════════════════════════════════ */
+function renderAll() {
+  renderTabCounts();
+  renderResumo();
+  renderEpics();
+  renderStories();
+  updateSyncChip();
+}
+
+function updateSyncChip() {
+  document.getElementById('syncChip').textContent =
+    S.fetchedAt ? 'sync ' + S.fetchedAt.toLocaleTimeString('pt-PT') : '—';
+}
+
+/* ─── TAB COUNTS ─────────────────────────────────────────── */
+function renderTabCounts() {
+  const oe = S.epics.filter(e => !isClosed(e.status)).length;
+  const os = S.stories.filter(s => !isClosed(s.status)).length;
+  document.getElementById('tc-epics').textContent   = oe   || '—';
+  document.getElementById('tc-stories').textContent = os   || '—';
+}
+
+/* ─── RESUMO ─────────────────────────────────────────────── */
+function renderResumo() {
+  const { epics, stories } = S;
+
+  const openE  = epics.filter(e => !isClosed(e.status));
+  const closedE = epics.filter(e => isClosed(e.status));
+  const openS  = stories.filter(s => !isClosed(s.status));
+  const doneS  = stories.filter(s => ['done','closed'].includes((s.status||'').toLowerCase()));
+  const pct    = stories.length ? Math.round(doneS.length / stories.length * 100) : 0;
+
+  const pctColor = pct >= 70 ? 'var(--green)' : pct >= 40 ? 'var(--orange)' : 'var(--red)';
+
+  document.getElementById('kpiGrid').innerHTML = `
+    ${kpi('Total Epics',   epics.length,   openE.length+' open · '+closedE.length+' closed',  'var(--blue)')}
+    ${kpi('Epics Open',    openE.length,   'Epics ativos',                                      'var(--cyan)')}
+    ${kpi('Total Stories', stories.length, openS.length+' open · '+doneS.length+' done',        'var(--purple)')}
+    ${kpi('Stories Open',  openS.length,   'Pendentes de desenvolvimento',                       'var(--orange)')}
+    ${kpi('Stories Done',  doneS.length,   'Concluídas',                                         'var(--green)')}
+    ${kpi('Completion',    pct+'%',        'Done ÷ Total stories',                               pctColor)}
+  `;
+
+  renderBreakdown('epicBar','epicLegend',epics);
+  renderBreakdown('storyBar','storyLegend',stories);
+}
+
+function kpi(label, value, sub, color) {
+  const topColor = color.replace('var(--','').replace(')','');
+  const borderMap = {blue:'var(--blue)',cyan:'var(--cyan)',purple:'var(--purple)',
+    orange:'var(--orange)',green:'var(--green)',red:'var(--red)'};
+  const bc = Object.keys(borderMap).find(k => topColor === k) ? borderMap[topColor] : color;
+  return `
+    <div class="kpi-card" style="border-top-color:${bc}">
+      <div class="kpi-label">${label}</div>
+      <div class="kpi-value" style="color:${color}">${value}</div>
+      <div class="kpi-sub">${sub}</div>
+    </div>`;
+}
+
+function renderBreakdown(barId, legId, issues) {
+  if (!issues.length) {
+    document.getElementById(barId).innerHTML = '';
+    document.getElementById(legId).innerHTML = '<div style="color:var(--dim);font-size:12px;padding:4px 0">Sem dados — clica em Refresh</div>';
+    return;
+  }
+
+  const counts = {};
+  issues.forEach(i => {
+    const s = i.status || 'Unknown';
+    counts[s] = (counts[s]||0) + 1;
+  });
+
+  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+  const total = issues.length;
+
+  document.getElementById(barId).innerHTML = sorted.map(([st, n]) =>
+    `<div class="bd-seg" style="width:${(n/total*100).toFixed(1)}%;background:${statusColor(st)}" title="${st}: ${n}"></div>`
+  ).join('');
+
+  document.getElementById(legId).innerHTML = sorted.map(([st, n]) => `
+    <div class="legend-row">
+      <div class="legend-dot" style="background:${statusColor(st)}"></div>
+      <span class="legend-name">${esc(st)}</span>
+      <span class="legend-n">${n}</span>
+      <span class="legend-pct">${(n/total*100).toFixed(0)}%</span>
+    </div>`
+  ).join('');
+}
+
+/* ─── EPICS TAB ──────────────────────────────────────────── */
+function renderEpics() {
+  const { epics, stories, showClosed } = S;
+  const visible = showClosed ? epics : epics.filter(e => !isClosed(e.status));
+  const el = document.getElementById('epicsContent');
+
+  if (!visible.length) {
+    el.innerHTML = emptyState('🗂', epics.length === 0
+      ? 'Sem epics — clica em Refresh para carregar dados do Jira.'
+      : 'Todos os epics estão fechados.' + (S.isAdmin ? '' : ' Ativa o modo Admin para os ver.'));
+    return;
+  }
+
+  const groups = groupByStatus(visible);
+  let html = '';
+  for (const [status, items] of groups) {
+    const c = statusColor(status);
+    html += `
+      <div class="status-section">
+        <div class="status-header">
+          <div class="status-dot" style="background:${c}"></div>
+          <span class="status-name">${esc(status)}</span>
+          <span class="status-cnt">${items.length}</span>
+        </div>
+        <div class="cards-grid">${items.map(e => epicCard(e, stories, c)).join('')}</div>
+      </div>`;
+  }
+  el.innerHTML = html;
+}
+
+function epicCard(epic, allStories, c) {
+  const cs = allStories.filter(s => s.epicKey === epic.key);
+  const doneCs = cs.filter(s => isClosed(s.status)).length;
+  const total  = cs.length;
+  const open   = cs.filter(s => !isClosed(s.status)).length;
+  const pct    = total ? Math.round(doneCs / total * 100) : 0;
+  const url    = `https://future-healthcare.atlassian.net/browse/${epic.key}`;
+  const bgBadge = statusColor(epic.status) + '28';
+
+  return `
+    <div class="epic-card" style="border-left-color:${c}">
+      <div class="card-head">
+        <a href="${url}" target="_blank" class="issue-key">${esc(epic.key)}</a>
+        <div class="issue-summary">${esc(epic.summary)}</div>
+      </div>
+      <div class="card-foot">
+        <span class="status-badge" style="background:${bgBadge};color:${statusColor(epic.status)}">${esc(epic.status)}</span>
+        ${total > 0
+          ? `<span class="story-count">📝 ${open} open · ${doneCs}/${total} done</span>
+             <div class="mini-prog-wrap"><div class="mini-prog-fill" style="width:${pct}%"></div></div>`
+          : `<span class="story-count" style="color:var(--dim)">📝 sem stories</span>`}
+      </div>
+    </div>`;
+}
+
+/* ─── STORIES TAB ────────────────────────────────────────── */
+function renderStories() {
+  const { stories, showClosed } = S;
+  const visible = showClosed ? stories : stories.filter(s => !isClosed(s.status));
+  const el = document.getElementById('storiesContent');
+
+  if (!visible.length) {
+    el.innerHTML = emptyState('📝', stories.length === 0
+      ? 'Sem stories — clica em Refresh para carregar dados do Jira.'
+      : 'Todas as stories estão fechadas.' + (S.isAdmin ? '' : ' Ativa o modo Admin para as ver.'));
+    return;
+  }
+
+  const groups = groupByStatus(visible);
+  let html = '';
+  for (const [status, items] of groups) {
+    const c = statusColor(status);
+    html += `
+      <div class="status-section">
+        <div class="status-header">
+          <div class="status-dot" style="background:${c}"></div>
+          <span class="status-name">${esc(status)}</span>
+          <span class="status-cnt">${items.length}</span>
+        </div>
+        <div class="cards-grid">${items.map(s => storyCard(s, c)).join('')}</div>
+      </div>`;
+  }
+  el.innerHTML = html;
+}
+
+function storyCard(story, c) {
+  const url    = `https://future-healthcare.atlassian.net/browse/${story.key}`;
+  const epicUrl = story.epicKey ? `https://future-healthcare.atlassian.net/browse/${story.epicKey}` : null;
+  const bgBadge = statusColor(story.status) + '28';
+
+  return `
+    <div class="story-card" style="border-left-color:${c}">
+      <div class="card-head">
+        <a href="${url}" target="_blank" class="issue-key">${esc(story.key)}</a>
+        <div class="issue-summary">${esc(story.summary)}</div>
+      </div>
+      <div class="card-foot">
+        <span class="status-badge" style="background:${bgBadge};color:${statusColor(story.status)}">${esc(story.status)}</span>
+        ${story.epicKey
+          ? `<a href="${epicUrl}" target="_blank" class="epic-ref">${esc(story.epicKey)}</a>`
+          : ''}
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════════════════ */
+function groupByStatus(items) {
+  const map = new Map();
+  // Pre-seed order
+  for (const s of STATUS_ORDER) map.set(s, []);
+
+  for (const item of items) {
+    const status = item.status || 'Unknown';
+    let matched = null;
+    for (const k of map.keys()) {
+      if (k.toLowerCase() === status.toLowerCase()) { matched = k; break; }
+    }
+    if (matched) {
+      map.get(matched).push(item);
+    } else {
+      if (!map.has(status)) map.set(status, []);
+      map.get(status).push(item);
+    }
+  }
+
+  // Remove empty buckets
+  for (const [k, arr] of map) if (!arr.length) map.delete(k);
+  return map;
+}
+
+function emptyState(icon, msg) {
+  return `<div class="empty-state"><div class="empty-icon">${icon}</div><div class="empty-text">${esc(msg)}</div></div>`;
+}
+
+/* ─── LOADING ────────────────────────────────────────────── */
+function showLoading(v, msg) {
+  document.getElementById('loadingOverlay').style.display = v ? 'flex' : 'none';
+  if (msg) setLdStatus(msg);
+}
+function setLdStatus(msg) {
+  document.getElementById('ldStatus').textContent = msg;
+}
+
+/* ─── BUTTON ─────────────────────────────────────────────── */
+function setBtnLoading(v) {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = v;
+  btn.querySelector('.ico').textContent = v ? '⏳' : '🔄';
+}
+
+/* ─── ERROR ──────────────────────────────────────────────── */
+function showErr(msg) {
+  document.getElementById('errSlot').innerHTML = `
+    <div class="err-banner">
+      <span>⚠️</span>
+      <span style="flex:1"><strong>Erro:</strong> ${esc(msg)}</span>
+      <button class="btn" onclick="clearErr()" style="padding:3px 10px;font-size:11px">✕</button>
+    </div>`;
+}
+function clearErr() { document.getElementById('errSlot').innerHTML = ''; }
+
+/* ─── ADMIN: DOWNLOAD JSON ───────────────────────────────── */
+function downloadJSON() {
+  const blob = new Blob([JSON.stringify({
+    epics:   S.epics,
+    stories: S.stories,
+    exportedAt: new Date().toISOString()
+  }, null, 2)], { type: 'application/json' });
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(blob),
+    download: 'dhcm-status-' + new Date().toISOString().slice(0,10) + '.json'
+  });
+  a.click();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════ */
+// Show empty state on load — user clicks Refresh to load from Jira
+loadSavedApiKey();
+renderAll();
+</script>
+</body>
+</html>
